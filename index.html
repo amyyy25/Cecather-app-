@@ -1858,6 +1858,26 @@
             rowMl.classList.remove('txt-red-highlight');
         }
     }
+if ('launchQueue' in window) {
+  window.launchQueue.setConsumer(async (launchParams) => {
+    if (launchParams.files && launchParams.files.length > 0) {
+      for (const fileHandle of launchParams.files) {
+        const file = await fileHandle.getFile();
+        
+        // Creamos un evento falso compatible con tu función existente
+        const eventoFalso = {
+          target: {
+            files: [file]
+          }
+        };
+
+        // Llamamos exactamente a tu función de importar
+        importarProyectoArchivo(eventoFalso);
+      }
+    }
+  });
+}
+    
 </script>
 
 </body>
