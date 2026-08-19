@@ -1859,24 +1859,34 @@
         }
     }
 if ('launchQueue' in window) {
-  window.launchQueue.setConsumer(async (launchParams) => {
-    if (launchParams.files && launchParams.files.length > 0) {
-      for (const fileHandle of launchParams.files) {
-        const file = await fileHandle.getFile();
-        
-        // Creamos un evento falso compatible con tu función existente
-        const eventoFalso = {
-          target: {
-            files: [file]
-          }
-        };
-
-        // Llamamos exactamente a tu función de importar
-        importarProyectoArchivo(eventoFalso);
+    window.launchQueue.setConsumer(async (launchParams) => {
+      if (launchParams.files && launchParams.files.length > 0) {
+        for (const fileHandle of launchParams.files) {
+          const file = await fileHandle.getFile();
+          
+          // Leemos el contenido del archivo directamente
+          const contenido = await file.text();
+          const datos = JSON.parse(contenido);
+          
+          // Llamamos a la función con los datos ya extraídos
+          // Nota: Si tu función 'importarProyectoArchivo' necesita el evento,
+          // vamos a saltárnoslo y pasarle los datos directamente si puedes.
+          // Pero prueba primero esto, que es lo que suelen esperar:
+          
+          const dataTransfer = new DataTransfer();
+          dataTransfer.items.add(file);
+          
+          const event = {
+            target: {
+              files: dataTransfer.files
+            }
+          };
+          
+          importarProyectoArchivo(event);
+        }
       }
-    }
-  });
-}
+    });
+  }
     
 </script>
 
