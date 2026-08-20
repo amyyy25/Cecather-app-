@@ -130,34 +130,18 @@
         }
 
         @media print {
-            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .no-print { display: none !important; }
-            body { background: white; padding: 0; margin: 0; font-size: 9.5px; width: 100%; }
-            .container { max-width: 100%; margin: 0; padding: 0; width: 100%; }
-            .card { box-shadow: none; border: none; padding: 0; margin: 0; width: 100%; }
-            .tab-content { display: none !important; width: 100%; }
-            .tab-content.active { display: block !important; width: 100%; }
+            body { background: white; padding: 0; margin: 0; font-size: 9.5px; }
+            .container { max-width: 100%; margin: 0; padding: 0; }
+            .card { box-shadow: none; border: none; padding: 0; margin: 0; }
+            .tab-content { display: none !important; }
+            .tab-content.active { display: block !important; }
             .taller-table .header-info, .resumen-table .header-row-excel td, .resumen-table tr.total-excel-row td { background-color: var(--yellow-brand) !important; }
-            
-            /* CLAVE: "size: auto" habilita el selector Horizontal/Vertical en el navegador */
-            @page { size: auto; margin: 5mm; } 
-            
-            .resumen-bottom-grid { margin-top: 8px; page-break-inside: avoid; }
+            @page { size: A4 portrait; margin: 0; }
+            .resumen-bottom-grid { margin-top: 8px; }
             .fila-aclaracion.ocultar-impresion { display: none !important; }
-            
-            /* Ajustes para escalar el contenido en cualquier orientación de página */
-            .a4-sheet-container, .a4-page-content { 
-                border: none !important; 
-                padding: 10mm !important; 
-                box-shadow: none !important; 
-                margin: 0 !important; 
-                width: 100% !important; 
-                max-width: 100% !important;
-                min-height: auto !important; 
-                height: auto !important; 
-            }
-            .table-responsive { overflow: visible !important; width: 100% !important; }
-            table { width: 100% !important; max-width: 100% !important; }
+            .a4-sheet-container, .a4-page-content { border: none !important; padding: 15mm !important; box-shadow: none !important; margin: 0 !important; width: 100% !important; min-height: 100vh !important; }
         }
     </style>
     <link rel="manifest" href="manifest.json">
@@ -867,6 +851,19 @@
         let cronosText = estanciasDOM.length;
         let manualSistemaText = hayTuboEnProyecto ? 'Manual instrucciones Sistema Acumulación' : 'Manual instrucciones Sistema Directo';
 
+        // LÓGICA DE INSTALACIÓN vs SUMINISTRO EN LA HOJA DE LISTA DE TALLERES
+        const esInstalacion = presTipo.includes('LLAVE EN MANO');
+        const textoEncabezadoModo = esInstalacion ? `Llave en mano – ESTUDIO ${titulo}` : `Suministro – ESTUDIO ${titulo}`;
+
+        let htmlManuales = '';
+        if (!esInstalacion) {
+            htmlManuales = `
+                <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${manualSistemaText}</div>
+                <div style="margin-bottom: 12px; font-size: 15px;">&#9744; Manual instrucciones Crono TUYA</div>
+                <div style="margin-bottom: 12px; font-size: 15px;">&#9744; Manual instalación Crono</div>
+            `;
+        }
+
         let htmlListaDocumento = `
             <div style="border: 2px solid #eeb631; padding: 14px 18px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
                 <div style="font-size: 20px; font-weight: 900;">Rfa. ${ref}</div>
@@ -881,7 +878,7 @@
                 <div><a href="mailto:${email}" style="color: #2563eb; text-decoration: underline;">${email}</a></div>
             </div>
             <div style="margin-bottom: 30px; font-size: 15px; line-height: 1.5; text-transform: uppercase; font-weight: 800;">
-                Suministro – ESTUDIO ${titulo}
+                ${textoEncabezadoModo}
             </div>
             <div style="font-size: 17px; font-weight: 900; margin-bottom: 15px;">Materiales:</div>
             <div style="margin-left: 15px; line-height: 1.8;">
@@ -891,9 +888,7 @@
                 <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoCub)} M.L. de Plástico de Cubrición</div>
                 ${usarBurbuja === 'si' ? `<div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoBurb)} M.L. de Plástico de Burbuja</div>` : ''}
                 <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${rollosCinta > 0 ? rollosCinta : 0} Rollos cinta gris de instalación</div>
-                <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${manualSistemaText}</div>
-                <div style="margin-bottom: 12px; font-size: 15px;">&#9744; Manual instrucciones Crono TUYA</div>
-                <div style="margin-bottom: 12px; font-size: 15px;">&#9744; Manual instalación Crono</div>
+                ${htmlManuales}
             </div>
             <div style="margin-top: 40px; font-size: 17px; font-weight: 900;">
                 Previsión de envío:
