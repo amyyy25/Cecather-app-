@@ -509,7 +509,6 @@
                 margin-top: 8px;
             }
             
-            /* Ocultar fila de aclaración si está vacía o tiene el texto inicial */
             .fila-aclaracion.ocultar-impresion {
                 display: none !important;
             }
@@ -757,7 +756,6 @@
                         <td class="label-col" style="color: var(--danger-red);">ROLLOS DE CINTA (USO INTERNO)</td>
                         <td class="val-col" id="res-rollos-cinta" style="color: var(--danger-red); font-weight: 900;">0</td>
                     </tr>
-                    <!-- Nueva fila con clase para control de impresión -->
                     <tr id="row-aclaracion" class="fila-aclaracion">
                         <td class="label-col editable-cell" contenteditable="true" id="label-aclaracion" oninput="verificarAclaracion()" style="color:#000;">* NOTA / ACLARACIÓN MANUAL:</td>
                         <td class="val-col editable-cell" contenteditable="true" id="val-aclaracion" oninput="verificarAclaracion()" style="text-align: left; font-weight: 500;">Hacer clic para escribir aclaración...</td>
@@ -796,12 +794,9 @@
 </div>
 
 <script>
-    // --- NUEVA FUNCION PARA VERIFICAR ACLARACION Y OCULTAR ---
     function verificarAclaracion() {
         const valAclaracion = document.getElementById('val-aclaracion').innerText.trim();
         const filaAclaracion = document.getElementById('row-aclaracion');
-        
-        // Texto por defecto que se considera "vacio"
         const textoPorDefecto = "Hacer clic para escribir aclaración...";
         
         if (valAclaracion === "" || valAclaracion === textoPorDefecto) {
@@ -812,12 +807,10 @@
         guardarEstadoLocal();
     }
     
-    // Función especial para impresión que asegura que la verificación se ejecute antes
     function imprimirConVerificacion() {
         verificarAclaracion();
         window.print();
     }
-    // --------------------------------------------------------
 
     const BASE_CIUDADES = {
         "A CORUÑA": [
@@ -991,13 +984,13 @@
     };
 
     const DATOS_ORIGINALES = [
-        { planta: "BAJA", nombre: "SALÓN COMEDOR", m2: 24.50, folios: [{ml: 12.0, tipo: 75, wcal: "", cable: "3M"}, {ml: 12.0, tipo: 75, wcal: "", cable: "3M"}] },
-        { planta: "BAJA", nombre: "COCINA", m2: 11.20, folios: [{ml: 14.0, tipo: 75, wcal: "", cable: "3M"}] },
-        { planta: "BAJA", nombre: "DISTRIBUIDOR", m2: 6.80, folios: [{ml: 8.0, tipo: 75, wcal: "", cable: "3M"}] },
-        { planta: "ALTA", nombre: "DORMITORIO 1", m2: 14.00, folios: [{ml: 16.5, tipo: 75, wcal: "", cable: "3M"}] },
-        { planta: "ALTA", nombre: "DORMITORIO 2", m2: 11.50, folios: [{ml: 13.0, tipo: 75, wcal: "", cable: "3M"}] },
-        { planta: "ALTA", nombre: "BAÑO 1", m2: 4.50, folios: [{ml: 4.0, tipo: 116, wcal: "", cable: "3M"}] },
-        { planta: "ALTA", nombre: "BAÑO 2", m2: 3.80, folios: [{ml: 3.5, tipo: 116, wcal: "", cable: "3M"}] }
+        { planta: "BAJA", nombre: "SALÓN COMEDOR", m2: 24.50, conTubo: false, folios: [{ml: 12.0, tipo: 75, wcal: "", cable: "3M"}, {ml: 12.0, tipo: 75, wcal: "", cable: "3M"}] },
+        { planta: "BAJA", nombre: "COCINA", m2: 11.20, conTubo: false, folios: [{ml: 14.0, tipo: 75, wcal: "", cable: "3M"}] },
+        { planta: "BAJA", nombre: "DISTRIBUIDOR", m2: 6.80, conTubo: false, folios: [{ml: 8.0, tipo: 75, wcal: "", cable: "3M"}] },
+        { planta: "ALTA", nombre: "DORMITORIO 1", m2: 14.00, conTubo: false, folios: [{ml: 16.5, tipo: 75, wcal: "", cable: "3M"}] },
+        { planta: "ALTA", nombre: "DORMITORIO 2", m2: 11.50, conTubo: false, folios: [{ml: 13.0, tipo: 75, wcal: "", cable: "3M"}] },
+        { planta: "ALTA", nombre: "BAÑO 1", m2: 4.50, conTubo: true, folios: [{ml: 4.0, tipo: 116, wcal: "", cable: "3M"}] },
+        { planta: "ALTA", nombre: "BAÑO 2", m2: 3.80, conTubo: true, folios: [{ml: 3.5, tipo: 116, wcal: "", cable: "3M"}] }
     ];
 
     let estanciaCount = 0;
@@ -1007,7 +1000,6 @@
         pueblarSelectCiudades();
         cargarEstadoLocal();
         generarTodo();
-        // Verificación inicial al cargar
         verificarAclaracion();
     };
 
@@ -1070,7 +1062,6 @@
             colaborador: document.getElementById('colaborador').value,
             tipoPresupuesto: document.getElementById('tipo-presupuesto').value,
             usarBurbuja: document.getElementById('usar-burbuja').value,
-            // Guardamos el texto de la aclaración
             aclaracionTexto: document.getElementById('val-aclaracion').innerText,
             estancias: []
         };
@@ -1080,6 +1071,7 @@
             const planta = est.querySelector('.est-planta').value;
             const nombre = est.querySelector('.est-nombre').value;
             const m2 = est.querySelector('.est-m2').value;
+            const conTubo = est.querySelector('.est-contubo').checked; // NUEVO: Captura el estado del checkbox
             const foliosArr = [];
             
             const foliosDOM = est.querySelectorAll('.folio-row');
@@ -1092,7 +1084,7 @@
                 });
             });
 
-            proyectoData.estancias.push({ planta, nombre, m2, folios: foliosArr });
+            proyectoData.estancias.push({ planta, nombre, m2, conTubo, folios: foliosArr });
         });
 
         return proyectoData;
@@ -1122,7 +1114,6 @@
         document.getElementById('tipo-presupuesto').value = data.tipoPresupuesto || '';
         document.getElementById('usar-burbuja').value = data.usarBurbuja || 'si';
         
-        // Cargar aclaración
         if(data.aclaracionTexto) {
             document.getElementById('val-aclaracion').innerText = data.aclaracionTexto;
         }
@@ -1131,13 +1122,13 @@
         if (data.estancias && data.estancias.length > 0) {
             data.estancias.forEach(e => {
                 let p = e.planta || data.planta || 'BAJA';
-                agregarEstanciaConDatos(p, e.nombre, e.m2, e.folios);
+                agregarEstanciaConDatos(p, e.nombre, e.m2, e.conTubo || false, e.folios);
             });
         } else {
-            agregarEstanciaConDatos("BAJA", "", "", []);
+            agregarEstanciaConDatos("BAJA", "", "", false, []);
         }
         
-        verificarAclaracion(); // Re-verificar tras cargar
+        verificarAclaracion();
     }
 
     function cargarEstadoLocal() {
@@ -1156,10 +1147,9 @@
         actualizarClimaCiudad();
         document.getElementById('colaborador').value = 'estandar';
         DATOS_ORIGINALES.forEach(e => {
-            agregarEstanciaConDatos(e.planta, e.nombre, e.m2, e.folios);
+            agregarEstanciaConDatos(e.planta, e.nombre, e.m2, e.conTubo || false, e.folios);
         });
         
-        // Reset aclaración
         document.getElementById('val-aclaracion').innerText = "Hacer clic para escribir aclaración...";
         verificarAclaracion();
     }
@@ -1174,7 +1164,7 @@
             document.getElementById('email').value = "";
             document.getElementById('estancias-container').innerHTML = '';
             document.getElementById('val-aclaracion').innerText = "Hacer clic para escribir aclaración...";
-            agregarEstanciaConDatos("BAJA", "", "", []);
+            agregarEstanciaConDatos("BAJA", "", "", false, []);
             verificarAclaracion();
             guardarEstadoLocal();
             generarTodo();
@@ -1259,7 +1249,7 @@
             document.getElementById('val-aclaracion').innerText = "Hacer clic para escribir aclaración...";
 
             DATOS_ORIGINALES.forEach(e => {
-                agregarEstanciaConDatos(e.planta, e.nombre, e.m2, e.folios);
+                agregarEstanciaConDatos(e.planta, e.nombre, e.m2, e.conTubo || false, e.folios);
             });
             verificarAclaracion();
             generarTodo();
@@ -1323,18 +1313,18 @@
     }
 
     function agregarEstancia() {
-        agregarEstanciaConDatos("BAJA", "", "", []);
+        agregarEstanciaConDatos("BAJA", "", "", false, []);
         guardarEstadoLocal();
     }
 
-    function agregarEstanciaConDatos(plantaVal, nombreVal, m2Val, foliosArr) {
+    function agregarEstanciaConDatos(plantaVal, nombreVal, m2Val, conTuboVal, foliosArr) {
         estanciaCount++;
         const id = estanciaCount;
         const div = document.createElement('div');
         div.className = 'estancia-box';
         div.id = `estancia-${id}`;
         div.innerHTML = `
-            <div style="display: grid; grid-template-columns: 120px 1fr 140px; gap: 10px; margin-bottom: 8px;">
+            <div style="display: grid; grid-template-columns: 120px 1fr 140px 140px; gap: 10px; margin-bottom: 8px; align-items: end;">
                 <div class="form-group">
                     <label>Planta</label>
                     <input type="text" class="est-planta" placeholder="Ej. 0, -1, ALTA" value="${plantaVal}" oninput="guardarEstadoLocal();">
@@ -1346,6 +1336,11 @@
                 <div class="form-group">
                     <label>Superficie (m²)</label>
                     <input type="number" step="0.01" class="est-m2" placeholder="0.00" value="${m2Val}" oninput="calcularEstancia(${id}); guardarEstadoLocal();">
+                </div>
+                <div class="form-group" style="justify-content: center; height: 100%;">
+                    <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; height: 34px; background: #fff; padding: 0 10px; border: 1px solid var(--border-color); border-radius: 6px; margin: 0;">
+                        <input type="checkbox" class="est-contubo" ${conTuboVal ? 'checked' : ''} onchange="guardarEstadoLocal();" style="width: auto;"> <span style="font-size: 11px; font-weight: 800; color: #000;">CON TUBO</span>
+                    </label>
                 </div>
             </div>
 
@@ -1458,8 +1453,8 @@
         });
 
         const liveWm2 = m2 > 0 ? Math.round(totalWatts / m2) : 0;
-        est.querySelector(`#live-wm2-${estanciaId}`).innerText = formatearNumero(liveWm2);
-        est.querySelector(`#live-wcol-${estanciaId}`).innerText = formatearNumero(totalWatts);
+        est.querySelector(`#live-wm2-${id || estanciaId}`).innerText = formatearNumero(liveWm2);
+        est.querySelector(`#live-wcol-${id || estanciaId}`).innerText = formatearNumero(totalWatts);
     }
 
     function generarTodo() {
@@ -1526,7 +1521,6 @@
         `;
         document.getElementById('commercial-box-container').innerHTML = htmlComercial;
 
-        // AGRUPACIÓN DE ESTANCIAS POR PLANTA
         const mapPlantas = new Map();
         const estanciasDOM = document.querySelectorAll('.estancia-box');
         
@@ -1538,12 +1532,12 @@
             
             const nombre = est.querySelector('.est-nombre').value.trim() || `HUECO ${index+1}`;
             const m2 = parseFloat(est.querySelector('.est-m2').value) || 0;
+            const conTubo = est.querySelector('.est-contubo').checked; // NUEVO: Lee el checkbox en el renderizado
             const foliosDOM = est.querySelectorAll('.folio-row');
             
-            mapPlantas.get(plantaVal).push({ nombre, m2, foliosDOM });
+            mapPlantas.get(plantaVal).push({ nombre, m2, conTubo, foliosDOM });
         });
 
-        // Variables Globales
         let totalM2 = 0, totalM2Banos = 0, totalWCol = 0, totalWCalSum = 0, totalCableSum = 0;
         let globalFolioNumTotal = 1, totalModulos = 0, totalMLSum = 0;
         let totalML75 = 0, totalML116 = 0, totalML150 = 0;
@@ -1564,6 +1558,7 @@
             estancias.forEach((estData, eIndex) => {
                 const nombre = estData.nombre;
                 const m2 = estData.m2;
+                const conTubo = estData.conTubo; // NUEVO: Estado del tubo para esta estancia
                 const esBano = nombre.toUpperCase().includes('BAÑO') || nombre.toUpperCase().includes('BANO');
                 
                 totalM2 += m2;
@@ -1638,6 +1633,16 @@
 
                     const trClassTall = (fIndex === 0 && eIndex > 0) ? 'sep-row' : '';
 
+                    // NUEVO: Añadimos celda final en Hoja de Taller que muestra "CON TUBO" en rojo y negrita si está marcado
+                    let tdTuboTaller = '';
+                    if (fIndex === 0) {
+                        if (conTubo) {
+                            tdTuboTaller = `<td rowspan="${numFoliosEst}" style="color: var(--danger-red); font-weight: 900; background-color: #fef2f2;">CON TUBO</td>`;
+                        } else {
+                            tdTuboTaller = `<td rowspan="${numFoliosEst}"></td>`;
+                        }
+                    }
+
                     htmlFilasTallerPlanta += `
                         <tr class="${trClassTall}">
                             ${fIndex === 0 ? `<td rowspan="${numFoliosEst}" class="hueco-name">${nombre.toUpperCase()}</td>` : ''}
@@ -1649,9 +1654,7 @@
                             <td><strong>${folioPlantaIndex}</strong></td>
                             <td>${formatearDecimal(ml)}m (${mod})</td>
                             <td>${cableVal.toUpperCase()}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            ${tdTuboTaller}
                         </tr>
                     `;
                     folioPlantaIndex++;
@@ -1678,24 +1681,22 @@
                     <table class="taller-table" style="margin-bottom: 20px;">
                         <thead>
                             <tr>
-                                <td colspan="5" class="header-info">${titulo.toUpperCase()}</td>
+                                <td colspan="4" class="header-info">${titulo.toUpperCase()}</td>
                                 <td colspan="3" class="header-info">Ref: ${ref}</td>
                                 <td colspan="2" class="header-info">PLANTA: ${plantaName.toUpperCase()}</td>
-                                <td colspan="2" class="header-info" style="text-align: center;">${tubo.toUpperCase()}</td>
+                                <td colspan="1" class="header-info" style="text-align: center;">${tubo.toUpperCase()}</td>
                             </tr>
                             <tr>
-                                <th style="width: 14%;">Hueco</th>
-                                <th style="width: 6%;">M²</th>
-                                <th style="width: 6%;">W/M²</th>
-                                <th style="width: 7%;">W. CAL.</th>
-                                <th style="width: 7%;">W. COL.</th>
-                                <th style="width: 7%;">W/ML</th>
-                                <th style="width: 6%;">Nº FOLIO</th>
-                                <th style="width: 10%;">LONG / MOD</th>
-                                <th style="width: 8%;">CABLE</th>
-                                <th style="width: 8%;">REALIZADO</th>
-                                <th style="width: 10%;">Ω TALL.</th>
-                                <th style="width: 10%;">Ω OBRA</th>
+                                <th style="width: 16%;">Hueco</th>
+                                <th style="width: 7%;">M²</th>
+                                <th style="width: 7%;">W/M²</th>
+                                <th style="width: 8%;">W. CAL.</th>
+                                <th style="width: 8%;">W. COL.</th>
+                                <th style="width: 8%;">W/ML</th>
+                                <th style="width: 7%;">Nº FOLIO</th>
+                                <th style="width: 12%;">LONG / MOD</th>
+                                <th style="width: 10%;">CABLE</th>
+                                <th style="width: 17%;">OBSERVACIONES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1710,7 +1711,7 @@
                                 <td style="font-weight:900;">${foliosCountPlanta}</td>
                                 <td style="font-weight:900;">${formatearDecimal(tMLPlanta)}m (${tModPlanta})</td>
                                 <td style="font-weight:900;">${tCablePlanta > 0 ? tCablePlanta + 'M' : ''}</td>
-                                <td colspan="3"></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1858,36 +1859,24 @@
             rowMl.classList.remove('txt-red-highlight');
         }
     }
-if ('launchQueue' in window) {
-    window.launchQueue.setConsumer(async (launchParams) => {
-      if (launchParams.files && launchParams.files.length > 0) {
-        for (const fileHandle of launchParams.files) {
-          const file = await fileHandle.getFile();
-          
-          // Leemos el contenido del archivo directamente
-          const contenido = await file.text();
-          const datos = JSON.parse(contenido);
-          
-          // Llamamos a la función con los datos ya extraídos
-          // Nota: Si tu función 'importarProyectoArchivo' necesita el evento,
-          // vamos a saltárnoslo y pasarle los datos directamente si puedes.
-          // Pero prueba primero esto, que es lo que suelen esperar:
-          
-          const dataTransfer = new DataTransfer();
-          dataTransfer.items.add(file);
-          
-          const event = {
-            target: {
-              files: dataTransfer.files
+
+    if ('launchQueue' in window) {
+        window.launchQueue.setConsumer(async (launchParams) => {
+          if (launchParams.files && launchParams.files.length > 0) {
+            for (const fileHandle of launchParams.files) {
+              const file = await fileHandle.getFile();
+              const dataTransfer = new DataTransfer();
+              dataTransfer.items.add(file);
+              const event = {
+                target: {
+                  files: dataTransfer.files
+                }
+              };
+              importarProyectoArchivo(event);
             }
-          };
-          
-          importarProyectoArchivo(event);
-        }
-      }
-    });
-  }
-    
+          }
+        });
+    }
 </script>
 
 </body>
