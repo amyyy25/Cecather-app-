@@ -238,7 +238,10 @@
             justify-content: center;
         }
 
-        .btn:hover { background-color: #222222; transform: translateY(-1px); }
+        .btn:hover {
+            background-color: #222222;
+            transform: translateY(-1px);
+        }
 
         .btn-primary {
             background-color: var(--yellow-brand);
@@ -247,7 +250,9 @@
             box-shadow: 0 4px 12px rgba(238, 182, 49, 0.35);
         }
 
-        .btn-primary:hover { background-color: var(--yellow-hover); }
+        .btn-primary:hover {
+            background-color: var(--yellow-hover);
+        }
 
         .btn-outline {
             background: transparent;
@@ -255,7 +260,10 @@
             border: 1.5px solid var(--black-main);
         }
 
-        .btn-outline:hover { background: var(--black-main); color: var(--white-pure); }
+        .btn-outline:hover {
+            background: var(--black-main);
+            color: var(--white-pure);
+        }
 
         .btn-danger {
             background: transparent;
@@ -267,7 +275,9 @@
             border: 1px solid transparent;
         }
 
-        .btn-danger:hover { background: rgba(239, 68, 68, 0.1); }
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
 
         .actions-bar {
             display: flex;
@@ -296,13 +306,26 @@
             transition: all 0.2s ease;
         }
 
-        .tab-button:hover { color: var(--black-main); }
-        .tab-button.active { color: var(--black-main); border-bottom-color: var(--yellow-brand); }
+        .tab-button:hover {
+            color: var(--black-main);
+        }
 
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-button.active {
+            color: var(--black-main);
+            border-bottom-color: var(--yellow-brand);
+        }
 
-        .table-responsive { overflow-x: auto; }
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
 
         .print-header-brand {
             display: flex;
@@ -321,7 +344,8 @@
             color: #0f172a;
         }
 
-        .taller-table th, .taller-table td {
+        .taller-table th,
+        .taller-table td {
             border: 1px solid #a1a1aa;
             padding: 4px 6px;
             text-align: center;
@@ -355,7 +379,9 @@
             color: #000000;
         }
 
-        .taller-table tr.sep-row td { border-top: 2px solid #000000; }
+        .taller-table tr.sep-row td {
+            border-top: 2px solid #000000;
+        }
 
         .taller-table tr.totals-row td {
             background-color: #cbd5e1 !important;
@@ -373,7 +399,8 @@
             color: #0f172a;
         }
 
-        .resumen-table th, .resumen-table td {
+        .resumen-table th,
+        .resumen-table td {
             border: 1px solid #000000;
             padding: 4px 5px;
             text-align: center;
@@ -459,9 +486,20 @@
             font-weight: 900 !important;
         }
 
-        .txt-75 { color: var(--color-75) !important; font-weight: 800; }
-        .txt-116 { color: var(--color-116) !important; font-weight: 800; }
-        .txt-150 { color: var(--color-150) !important; font-weight: 800; }
+        .txt-75 {
+            color: var(--color-75) !important;
+            font-weight: 800;
+        }
+
+        .txt-116 {
+            color: var(--color-116) !important;
+            font-weight: 800;
+        }
+
+        .txt-150 {
+            color: var(--color-150) !important;
+            font-weight: 800;
+        }
 
         .comparativa-table {
             width: 100%;
@@ -487,7 +525,9 @@
                 print-color-adjust: exact !important;
             }
 
-            .no-print { display: none !important; }
+            .no-print {
+                display: none !important;
+            }
 
             body {
                 background: white;
@@ -509,8 +549,13 @@
                 margin: 0;
             }
 
-            .tab-content { display: none !important; }
-            .tab-content.active { display: block !important; }
+            .tab-content {
+                display: none !important;
+            }
+
+            .tab-content.active {
+                display: block !important;
+            }
 
             .taller-table .header-info,
             .resumen-table .header-row-excel td,
@@ -532,9 +577,11 @@
             }
         }
     </style>
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#000000">
 </head>
+
 <body>
 
 <header class="cecather-navbar no-print">
@@ -542,6 +589,7 @@
         <span class="sub-black">GRUPO</span>
         <span class="main-yellow">CECATHER <sup>®</sup></span>
     </div>
+
     <div class="nav-title-app">
         Generador de Proyectos y Taller
     </div>
@@ -550,200 +598,324 @@
 <div class="container">
 
     <div class="card no-print">
-        <div class="card-title">1. Configuración del Proyecto</div>
+
+        <div class="card-title">
+            1. Configuración del Proyecto
+        </div>
 
         <div class="grid-4">
+
             <div class="form-group">
                 <label>Título / Obra</label>
-                <input type="text" id="titulo" placeholder="Ej. VIVIENDA UNIFAMILIAR"
-                       value="VIVIENDA UNIFAMILIAR"
-                       oninput="guardarEstadoLocal()">
+                <input
+                    type="text"
+                    id="titulo"
+                    placeholder="Ej. VIVIENDA UNIFAMILIAR"
+                    value="VIVIENDA UNIFAMILIAR"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
                 <label>Cliente / Ref.</label>
-                <input type="text" id="referencia"
-                       placeholder="Ej. Ref: 25F-78950"
-                       value="25F-78950 (REVISIÓN 15.06.26)"
-                       oninput="guardarEstadoLocal()">
+                <input
+                    type="text"
+                    id="referencia"
+                    placeholder="Ej. Ref: 25F-78950"
+                    value="25F-78950 (REVISIÓN 15.06.26)"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
                 <label>Instalación / Tubo</label>
-                <input type="text" id="tubo"
-                       value="INSTALACIÓN DIRECTA - SIN TUBO"
-                       oninput="guardarEstadoLocal()">
+                <input
+                    type="text"
+                    id="tubo"
+                    value="INSTALACIÓN DIRECTA - SIN TUBO"
+                    oninput="guardarEstadoLocal()">
             </div>
+
         </div>
 
-        <div class="grid-4" style="margin-top: 10px; background: #f1f5f9; padding: 10px; border-radius: 6px;">
+        <div
+            class="grid-4"
+            style="margin-top: 10px; background: #f1f5f9; padding: 10px; border-radius: 6px;">
 
             <div class="form-group">
-                <label style="color: #000000; font-weight: 800;">📍 Selección de Ciudad</label>
-                <select id="select-ciudad"
-                        onchange="actualizarClimaCiudad(); guardarEstadoLocal();">
+
+                <label style="color: #000000; font-weight: 800;">
+                    📍 Selección de Ciudad
+                </label>
+
+                <select
+                    id="select-ciudad"
+                    onchange="actualizarClimaCiudad(); guardarEstadoLocal();">
                 </select>
+
             </div>
 
-            <div class="form-group" id="grupo-input-manual-ciudad" style="display: none;">
-                <label style="color: var(--danger-red);">Nombre Ciudad (Manual)</label>
-                <input type="text" id="input-ciudad-manual"
-                       value="MANUAL"
-                       placeholder="Escribe la ciudad"
-                       oninput="guardarEstadoLocal()">
+            <div
+                class="form-group"
+                id="grupo-input-manual-ciudad"
+                style="display: none;">
+
+                <label style="color: var(--danger-red);">
+                    Nombre Ciudad (Manual)
+                </label>
+
+                <input
+                    type="text"
+                    id="input-ciudad-manual"
+                    value="MANUAL"
+                    placeholder="Escribe la ciudad"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Grados Día Base</label>
-                <input type="text" id="clima-grados"
-                       value="865"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="clima-grados"
+                    value="865"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Temperatura Exterior (°C)</label>
-                <input type="text" id="clima-temp"
-                       value="1°C"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="clima-temp"
+                    value="1°C"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Pavimento</label>
-                <input type="text" id="pavimento"
-                       value="PAVIMENTO TARIMA"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="pavimento"
+                    value="PAVIMENTO TARIMA"
+                    oninput="guardarEstadoLocal()">
             </div>
+
         </div>
 
-        <div class="grid-4" style="margin-top: 10px;">
+        <div
+            class="grid-4"
+            style="margin-top: 10px;">
 
             <div class="form-group">
+
                 <label>Solicitante</label>
-                <input type="text" id="solicitante"
-                       placeholder="Nombre del solicitante"
-                       value="CLIENTE EJEMPLO"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="solicitante"
+                    placeholder="Nombre del solicitante"
+                    value="CLIENTE EJEMPLO"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Teléfono Cliente</label>
-                <input type="text" id="telefono"
-                       placeholder="Ej. 600 000 000"
-                       value="-"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="telefono"
+                    placeholder="Ej. 600 000 000"
+                    value="-"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Email Cliente</label>
-                <input type="text" id="email"
-                       placeholder="Ej. cliente@email.com"
-                       value="-"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="email"
+                    placeholder="Ej. cliente@email.com"
+                    value="-"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Fecha del Estudio</label>
-                <input type="text" id="fecha"
-                       value="18.08.26"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="fecha"
+                    value="18.08.26"
+                    oninput="guardarEstadoLocal()">
             </div>
+
         </div>
 
-        <div class="grid-4" style="margin-top: 10px;">
+        <div
+            class="grid-4"
+            style="margin-top: 10px;">
 
             <div class="form-group">
+
                 <label>Técnico Proyecto</label>
-                <input type="text" id="tecnico"
-                       value="Amy Montero"
-                       oninput="guardarEstadoLocal()">
+
+                <input
+                    type="text"
+                    id="tecnico"
+                    value="Amy Montero"
+                    oninput="guardarEstadoLocal()">
             </div>
 
             <div class="form-group">
+
                 <label>Colaborador / Gestión</label>
-                <select id="colaborador" onchange="guardarEstadoLocal()">
-                    <option value="estandar" selected>Estándar (Sin colaborador)</option>
-                    <option value="francesc">Francesc Nogués (Cataluña)</option>
+
+                <select
+                    id="colaborador"
+                    onchange="guardarEstadoLocal()">
+
+                    <option
+                        value="estandar"
+                        selected>
+                        Estándar (Sin colaborador)
+                    </option>
+
+                    <option value="francesc">
+                        Francesc Nogués (Cataluña)
+                    </option>
+
                 </select>
+
             </div>
 
             <div class="form-group">
+
                 <label>Modalidad Presupuesto</label>
-                <select id="tipo-presupuesto" onchange="guardarEstadoLocal()">
-                    <option value="PRESUPUESTO SUMINISTRO Y LLAVE EN MANO" selected>
+
+                <select
+                    id="tipo-presupuesto"
+                    onchange="guardarEstadoLocal()">
+
+                    <option
+                        value="PRESUPUESTO SUMINISTRO Y LLAVE EN MANO"
+                        selected>
                         PRESUPUESTO SUMINISTRO Y LLAVE EN MANO
                     </option>
+
                     <option value="PRESUPUESTO SUMINISTRO">
                         PRESUPUESTO SUMINISTRO
                     </option>
+
                     <option value="PRESUPUESTO LLAVE EN MANO">
                         PRESUPUESTO LLAVE EN MANO
                     </option>
+
                 </select>
+
             </div>
 
             <div class="form-group">
+
                 <label>Incluir Plástico Burbujas</label>
-                <select id="usar-burbuja" onchange="guardarEstadoLocal()">
-                    <option value="si" selected>Sí (Mostrar en informe)</option>
-                    <option value="no">No (Ocultar de la tabla)</option>
+
+                <select
+                    id="usar-burbuja"
+                    onchange="guardarEstadoLocal()">
+
+                    <option
+                        value="si"
+                        selected>
+                        Sí (Mostrar en informe)
+                    </option>
+
+                    <option value="no">
+                        No (Ocultar de la tabla)
+                    </option>
+
                 </select>
+
             </div>
 
         </div>
+
     </div>
 
     <div class="card no-print">
 
-        <div class="card-title">2. Estancias y Configuración de Folios</div>
+        <div class="card-title">
+            2. Estancias y Configuración de Folios
+        </div>
 
         <div id="estancias-container"></div>
 
-        <div style="display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;">
+        <div
+            style="display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;">
 
-            <button class="btn btn-outline"
-                    onclick="agregarEstancia(); guardarEstadoLocal();">
+            <button
+                class="btn btn-outline"
+                onclick="agregarEstancia(); guardarEstadoLocal();">
                 + Añadir Nueva Estancia
             </button>
 
-            <button class="btn btn-outline"
-                    onclick="vaciarProyectoParaPlantilla()"
-                    style="border-color: var(--danger-red); color: var(--danger-red);">
+            <button
+                class="btn btn-outline"
+                onclick="vaciarProyectoParaPlantilla()"
+                style="border-color: var(--danger-red); color: var(--danger-red);">
                 🧹 Limpiar Todo (Crear Plantilla Vacía)
             </button>
 
-            <button class="btn btn-danger"
-                    onclick="resetearDatosLocalStorage()"
-                    style="padding: 8px 12px; font-size: 11px;">
+            <button
+                class="btn btn-danger"
+                onclick="resetearDatosLocalStorage()"
+                style="padding: 8px 12px; font-size: 11px;">
                 🗑️ Restaurar Datos Originales
             </button>
 
         </div>
+
     </div>
 
     <div class="actions-bar no-print">
 
-        <button class="btn btn-outline"
-                onclick="exportarProyectoArchivo()"
-                title="Guarda este proyecto en un archivo independiente en tu PC">
+        <button
+            class="btn btn-outline"
+            onclick="exportarProyectoArchivo()"
+            title="Guarda este proyecto en un archivo independiente en tu PC">
             📥 Exportar Proyecto (.json)
         </button>
 
-        <label class="btn btn-outline"
-               style="cursor: pointer; margin-bottom: 0;"
-               title="Carga un archivo de proyecto guardado previamente">
+        <label
+            class="btn btn-outline"
+            style="cursor: pointer; margin-bottom: 0;"
+            title="Carga un archivo de proyecto guardado previamente">
+
             📤 Importar Proyecto
-            <input type="file"
-                   id="file-input"
-                   style="display: none;"
-                   accept=".json"
-                   onchange="importarProyectoArchivo(event)">
+
+            <input
+                type="file"
+                id="file-input"
+                style="display: none;"
+                accept=".json,application/json,text/json"
+                onchange="importarProyectoArchivo(event)">
+
         </label>
 
-        <button class="btn btn-primary" onclick="generarTodo()">
+        <button
+            class="btn btn-primary"
+            onclick="generarTodo()">
             ⚡ Calcular y Actualizar Vistas
         </button>
 
-        <button class="btn" onclick="imprimirConVerificacion()">
+        <button
+            class="btn"
+            onclick="imprimirConVerificacion()">
             🖨️ Imprimir Vista Actual
         </button>
 
@@ -751,36 +923,46 @@
 
     <div class="tabs-nav no-print">
 
-        <button class="tab-button active"
-                onclick="switchTab('tab-taller')">
+        <button
+            class="tab-button active"
+            onclick="switchTab('tab-taller')">
             📋 HOJA DE TALLER (MONTAJE)
         </button>
 
-        <button class="tab-button"
-                onclick="switchTab('tab-resumen')">
+        <button
+            class="tab-button"
+            onclick="switchTab('tab-resumen')">
             📊 HOJA DE RESUMEN (ESTUDIO)
         </button>
 
-        <button class="tab-button"
-                onclick="switchTab('tab-comparativa')">
+        <button
+            class="tab-button"
+            onclick="switchTab('tab-comparativa')">
             🔄 COMPARATIVA REVISIÓN
         </button>
 
     </div>
 
-    <div id="tab-taller" class="tab-content card active">
+    <div
+        id="tab-taller"
+        class="tab-content card active">
     </div>
 
-    <div id="tab-resumen" class="tab-content card">
+    <div
+        id="tab-resumen"
+        class="tab-content card">
 
         <div class="print-header-brand">
 
             <div class="cecather-logo-box">
                 <span class="sub-black">GRUPO</span>
-                <span class="main-yellow">CECATHER <sup>®</sup></span>
+                <span class="main-yellow">
+                    CECATHER <sup>®</sup>
+                </span>
             </div>
 
-            <div style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">
+            <div
+                style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">
                 ESTUDIO TÉCNICO Y RESUMEN DE PROYECTO
             </div>
 
@@ -794,15 +976,21 @@
 
                     <tr class="header-row-excel">
 
-                        <td id="res-fecha" style="width: 8%;">18.08.26</td>
+                        <td
+                            id="res-fecha"
+                            style="width: 8%;">
+                            18.08.26
+                        </td>
 
-                        <td colspan="3"
+                        <td
+                            colspan="3"
                             id="res-titulo"
                             style="width: 50%;">
                             VIVIENDA UNIFAMILIAR
                         </td>
 
-                        <td colspan="6"
+                        <td
+                            colspan="6"
                             id="res-ref"
                             style="text-align: right; width: 42%;">
                             Ref: 25F-78950
@@ -812,16 +1000,45 @@
 
                     <tr>
 
-                        <th style="width: 8%;">PLANTA</th>
-                        <th style="width: 27%;">HUECO</th>
-                        <th style="width: 8%;">M²</th>
-                        <th style="width: 8%;">M² baño</th>
-                        <th style="width: 8%;">W/m²</th>
-                        <th style="width: 9%;">75W</th>
-                        <th style="width: 9%;">116W</th>
-                        <th style="width: 9%;">150W</th>
-                        <th style="width: 8%;">W</th>
-                        <th style="width: 6%;">CRONOS</th>
+                        <th style="width: 8%;">
+                            PLANTA
+                        </th>
+
+                        <th style="width: 27%;">
+                            HUECO
+                        </th>
+
+                        <th style="width: 8%;">
+                            M²
+                        </th>
+
+                        <th style="width: 8%;">
+                            M² baño
+                        </th>
+
+                        <th style="width: 8%;">
+                            W/m²
+                        </th>
+
+                        <th style="width: 9%;">
+                            75W
+                        </th>
+
+                        <th style="width: 9%;">
+                            116W
+                        </th>
+
+                        <th style="width: 9%;">
+                            150W
+                        </th>
+
+                        <th style="width: 8%;">
+                            W
+                        </th>
+
+                        <th style="width: 6%;">
+                            CRONOS
+                        </th>
 
                     </tr>
 
@@ -838,101 +1055,237 @@
 
             <div>
 
-                <h3 style="font-size: 11px; font-weight: 900; margin-bottom: 4px;">
+                <h3
+                    style="font-size: 11px; font-weight: 900; margin-bottom: 4px;">
                     RESUMEN
                 </h3>
 
                 <table class="resumen-block-table">
 
                     <tr id="row-res-m2-totales">
-                        <td class="label-col">M² TOTALES</td>
-                        <td class="val-col" id="res-m2-totales">0,00</td>
+
+                        <td class="label-col">
+                            M² TOTALES
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-m2-totales">
+                            0,00
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-m2-banos">
-                        <td class="label-col">M² BAÑOS</td>
-                        <td class="val-col" id="res-m2-banos">0,00</td>
+
+                        <td class="label-col">
+                            M² BAÑOS
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-m2-banos">
+                            0,00
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-pot-75">
-                        <td class="label-col">POTENCIA EN 75 w</td>
-                        <td class="val-col" id="res-pot-75">0</td>
+
+                        <td class="label-col">
+                            POTENCIA EN 75 w
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-pot-75">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-pot-116">
-                        <td class="label-col">POTENCIA EN 116 w</td>
-                        <td class="val-col" id="res-pot-116">0</td>
+
+                        <td class="label-col">
+                            POTENCIA EN 116 w
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-pot-116">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-pot-150">
-                        <td class="label-col">POTENCIA EN 150 w</td>
-                        <td class="val-col" id="res-pot-150">0</td>
+
+                        <td class="label-col">
+                            POTENCIA EN 150 w
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-pot-150">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-pot-total">
-                        <td class="label-col" style="font-weight: 900;">
+
+                        <td
+                            class="label-col"
+                            style="font-weight: 900;">
                             POTENCIA TOTAL
                         </td>
-                        <td class="val-col" id="res-pot-total" style="font-weight: 900;">
+
+                        <td
+                            class="val-col"
+                            id="res-pot-total"
+                            style="font-weight: 900;">
                             0
                         </td>
+
                     </tr>
 
                     <tr id="row-res-ml-75">
-                        <td class="label-col">M.L. EN 75 w</td>
-                        <td class="val-col" id="res-ml-75">0,00</td>
+
+                        <td class="label-col">
+                            M.L. EN 75 w
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-ml-75">
+                            0,00
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-ml-116">
-                        <td class="label-col">M.L. EN 116 w</td>
-                        <td class="val-col" id="res-ml-116">0,00</td>
+
+                        <td class="label-col">
+                            M.L. EN 116 w
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-ml-116">
+                            0,00
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-ml-150">
-                        <td class="label-col">M.L. EN 150 w</td>
-                        <td class="val-col" id="res-ml-150">0,00</td>
+
+                        <td class="label-col">
+                            M.L. EN 150 w
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-ml-150">
+                            0,00
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-cronos">
-                        <td class="label-col">CRONOS</td>
-                        <td class="val-col" id="res-cronos-total">0</td>
+
+                        <td class="label-col">
+                            CRONOS
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-cronos-total">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-densidad">
-                        <td class="label-col">DENSIDAD MEDIA</td>
-                        <td class="val-col" id="res-densidad-media">0</td>
+
+                        <td class="label-col">
+                            DENSIDAD MEDIA
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-densidad-media">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-plastico-cub">
-                        <td class="label-col">PLASTICO DE CUBRICION</td>
-                        <td class="val-col" id="res-plastico-cub">0</td>
+
+                        <td class="label-col">
+                            PLASTICO DE CUBRICION
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-plastico-cub">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-udes-folio">
-                        <td class="label-col">UDES. DE FOLIO</td>
-                        <td class="val-col" id="res-udes-folio">0</td>
+
+                        <td class="label-col">
+                            UDES. DE FOLIO
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-udes-folio">
+                            0
+                        </td>
+
                     </tr>
 
                     <tr id="row-res-plastico-burb">
-                        <td class="label-col">PLÁSTICO BURBUJAS</td>
-                        <td class="val-col" id="res-plastico-burb">0</td>
+
+                        <td class="label-col">
+                            PLÁSTICO BURBUJAS
+                        </td>
+
+                        <td
+                            class="val-col"
+                            id="res-plastico-burb">
+                            0
+                        </td>
+
                     </tr>
 
-                    <tr id="row-res-rollos-cinta" class="no-print">
-                        <td class="label-col"
+                    <tr
+                        id="row-res-rollos-cinta"
+                        class="no-print">
+
+                        <td
+                            class="label-col"
                             style="color: var(--danger-red);">
                             ROLLOS DE CINTA (USO INTERNO)
                         </td>
-                        <td class="val-col"
+
+                        <td
+                            class="val-col"
                             id="res-rollos-cinta"
                             style="color: var(--danger-red); font-weight: 900;">
                             0
                         </td>
+
                     </tr>
 
-                    <tr id="row-aclaracion" class="fila-aclaracion">
+                    <tr
+                        id="row-aclaracion"
+                        class="fila-aclaracion">
 
-                        <td class="label-col editable-cell"
+                        <td
+                            class="label-col editable-cell"
                             contenteditable="true"
                             id="label-aclaracion"
                             oninput="verificarAclaracion()"
@@ -940,7 +1293,8 @@
                             * NOTA / ACLARACIÓN MANUAL:
                         </td>
 
-                        <td class="val-col editable-cell"
+                        <td
+                            class="val-col editable-cell"
                             contenteditable="true"
                             id="val-aclaracion"
                             oninput="verificarAclaracion()"
@@ -954,57 +1308,70 @@
 
             </div>
 
-            <div class="commercial-box"
-                 id="commercial-box-container">
+            <div
+                class="commercial-box"
+                id="commercial-box-container">
             </div>
 
         </div>
 
     </div>
 
-    <div id="tab-comparativa" class="tab-content card">
+    <div
+        id="tab-comparativa"
+        class="tab-content card">
 
         <div class="print-header-brand">
 
             <div class="cecather-logo-box">
                 <span class="sub-black">GRUPO</span>
-                <span class="main-yellow">CECATHER <sup>®</sup></span>
+                <span class="main-yellow">
+                    CECATHER <sup>®</sup>
+                </span>
             </div>
 
-            <div style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">
+            <div
+                style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">
                 COMPARATIVA DE REVISIÓN
             </div>
 
         </div>
 
-        <div class="actions-bar no-print"
-             style="justify-content: flex-start; margin-bottom: 20px;">
+        <div
+            class="actions-bar no-print"
+            style="justify-content: flex-start; margin-bottom: 20px;">
 
-            <label class="btn btn-outline"
-                   style="cursor: pointer; margin-bottom: 0;"
-                   title="Carga el proyecto antiguo para enfrentarlo con los datos actuales">
+            <label
+                class="btn btn-outline"
+                style="cursor: pointer; margin-bottom: 0;"
+                title="Carga el proyecto antiguo para enfrentarlo con los datos actuales">
 
                 📥 Cargar Estudio Inicial (.json)
 
-                <input type="file"
-                       id="file-input-inicial"
-                       style="display: none;"
-                       accept=".json"
-                       onchange="importarEstudioInicial(event)">
+                <input
+                    type="file"
+                    id="file-input-inicial"
+                    style="display: none;"
+                    accept=".json,application/json,text/json"
+                    onchange="importarEstudioInicial(event)">
 
             </label>
 
-            <button class="btn btn-danger"
-                    onclick="limpiarEstudioInicial()">
+            <button
+                class="btn btn-danger"
+                onclick="limpiarEstudioInicial()">
                 Limpiar Comparativa
             </button>
 
         </div>
 
         <div id="comparativa-container">
-            <p style="text-align:center; padding: 20px; color: var(--text-muted); font-weight: 600;">
+
+            <p
+                style="text-align:center; padding: 20px; color: var(--text-muted); font-weight: 600;">
                 Carga un archivo de proyecto (.json) anterior para ver la comparativa con los datos actuales.
             </p>
+
         </div>
 
     </div>
@@ -1014,11 +1381,16 @@
 <script>
 
     function verificarAclaracion() {
+
         const valAclaracion =
-            document.getElementById('val-aclaracion').innerText.trim();
+            document.getElementById(
+                'val-aclaracion'
+            ).innerText.trim();
 
         const filaAclaracion =
-            document.getElementById('row-aclaracion');
+            document.getElementById(
+                'row-aclaracion'
+            );
 
         const textoPorDefecto =
             "Hacer clic para escribir aclaración...";
@@ -1027,9 +1399,13 @@
             valAclaracion === "" ||
             valAclaracion === textoPorDefecto
         ) {
-            filaAclaracion.classList.add('ocultar-impresion');
+            filaAclaracion.classList.add(
+                'ocultar-impresion'
+            );
         } else {
-            filaAclaracion.classList.remove('ocultar-impresion');
+            filaAclaracion.classList.remove(
+                'ocultar-impresion'
+            );
         }
 
         guardarEstadoLocal();
@@ -1041,24 +1417,30 @@
     }
 
     const BASE_CIUDADES = {
+
         "A CORUÑA": [
             { nombre: "A CORUÑA", grados: 942, temp: "0°C" },
             { nombre: "BETANZOS", grados: 942, temp: "0°C" }
         ],
+
         "ALAVA": [
             { nombre: "VITORIA-GASTEIZ", grados: 1572, temp: "-3°C" }
         ],
+
         "ALBACETE": [
             { nombre: "ALBACETE", grados: 1224, temp: "-4°C" }
         ],
+
         "ALMERIA": [
             { nombre: "ALMERIA", grados: 207, temp: "5°C" }
         ],
+
         "ALICANTE": [
             { nombre: "ALFAZ DE PI", grados: 450, temp: "4°C" },
             { nombre: "ALICANTE", grados: 450, temp: "4°C" },
             { nombre: "SAX", grados: 627, temp: "1°C" }
         ],
+
         "ASTURIAS": [
             { nombre: "CUDILLERO", grados: 997, temp: "2°C" },
             { nombre: "AVILES", grados: 997, temp: "2°C" },
@@ -1067,16 +1449,20 @@
             { nombre: "CANGAS DE NARCEA", grados: 1595, temp: "-2°C" },
             { nombre: "MIERES", grados: 1462, temp: "0°C" }
         ],
+
         "AVILA": [
             { nombre: "AVILA", grados: 1913, temp: "-6°C" }
         ],
+
         "BADAJOZ": [
             { nombre: "BADAJOZ", grados: 869, temp: "-1°C" }
         ],
+
         "BALEARES": [
             { nombre: "MALLORCA", grados: 627, temp: "0°C" },
             { nombre: "MENORCA", grados: 627, temp: "0°C" }
         ],
+
         "BARCELONA": [
             { nombre: "BARCELONA", grados: 865, temp: "1°C" },
             { nombre: "VILANOVA I LA GELTRÚ", grados: 865, temp: "1°C" },
@@ -1085,56 +1471,72 @@
             { nombre: "VIC", grados: 1230, temp: "-3°C" },
             { nombre: "MATARÓ", grados: 865, temp: "1°C" }
         ],
+
         "BURGOS": [
             { nombre: "BURGOS", grados: 2005, temp: "-5°C" },
             { nombre: "ARANDA DEL DUERO", grados: 2005, temp: "-5°C" }
         ],
+
         "CADIZ": [
             { nombre: "ALGECIRAS", grados: 392, temp: "5°C" },
             { nombre: "CÁDIZ", grados: 393, temp: "5°C" }
         ],
+
         "CASTELLÓN": [
             { nombre: "CASTELLÓN", grados: 575, temp: "3°C" }
         ],
+
         "CIUDAD REAL": [
             { nombre: "CIUDAD REAL", grados: 1715, temp: "-3°C" }
         ],
+
         "GIRONA": [
             { nombre: "GIRONA", grados: 1230, temp: "-3°C" }
         ],
+
         "GIPÚZCOA": [
             { nombre: "SAN SEBASTIAN", grados: 922, temp: "-1°C" }
         ],
+
         "GRANADA": [
             { nombre: "GRANADA", grados: 1041, temp: "-2°C" }
         ],
+
         "GUADALAJARA": [
             { nombre: "GUADALAJARA", grados: 2216, temp: "-5°C" }
         ],
+
         "HUELVA": [
             { nombre: "HUELVA", grados: 456, temp: "2°C" }
         ],
+
         "HUESCA": [
             { nombre: "HUESCA", grados: 1508, temp: "-4°C" },
             { nombre: "SABIÑANIGO", grados: 2722, temp: "-6°C" }
         ],
+
         "JAEN": [
             { nombre: "UBEDA", grados: 1410, temp: "-1°C" }
         ],
+
         "LA RIOJA": [
             { nombre: "LOGROÑO", grados: 1400, temp: "-3°C" },
             { nombre: "VILLANUEVA DE CAMEROS", grados: 2152, temp: "-7°C" }
         ],
+
         "LEON": [
             { nombre: "LEON", grados: 1957, temp: "-5°C" }
         ],
+
         "LLEIDA": [
             { nombre: "LLEIDA", grados: 2722, temp: "-4°C" }
         ],
+
         "LUGO": [
             { nombre: "LUGO", grados: 1760, temp: "-2°C" },
             { nombre: "SAHAGUN", grados: 2146, temp: "-4°C" }
         ],
+
         "MADRID": [
             { nombre: "MADRID", grados: 1283, temp: "1°C" },
             { nombre: "ARANJUEZ", grados: 1292, temp: "-4°C" },
@@ -1144,67 +1546,85 @@
             { nombre: "NAVACERRADA", grados: 3267, temp: "-3°C" },
             { nombre: "EL MORAL", grados: 2216, temp: "-3°C" }
         ],
+
         "MÁLAGA": [
             { nombre: "MÁLAGA", grados: 392, temp: "5°C" },
             { nombre: "MARBELLA", grados: 392, temp: "5°C" }
         ],
+
         "MURCIA": [
             { nombre: "LORCA", grados: 585, temp: "2°C" },
             { nombre: "MURCIA", grados: 585, temp: "2°C" }
         ],
+
         "NAVARRA": [
             { nombre: "PAMPLONA", grados: 1572, temp: "-3°C" }
         ],
+
         "OURENSE": [
             { nombre: "OURENSE", grados: 1189, temp: "-3°C" }
         ],
+
         "PALENCIA": [
             { nombre: "PALENCIA", grados: 2146, temp: "-4°C" },
             { nombre: "AMPUDIA", grados: 2146, temp: "-5°C" },
             { nombre: "SALDAÑA", grados: 2146, temp: "-4°C" }
         ],
+
         "PONTEVEDRA": [
             { nombre: "PONTEVEDRA", grados: 1040, temp: "1°C" },
             { nombre: "BAIONA", grados: 1040, temp: "1°C" }
         ],
+
         "SEVILLA": [
             { nombre: "SEVILLA", grados: 406, temp: "3°C" },
             { nombre: "CORIA DEL RIO", grados: 406, temp: "3°C" },
             { nombre: "FUENTES DE ANDALUCIA", grados: 406, temp: "3°C" }
         ],
+
         "SALAMANCA": [
             { nombre: "SALAMANCA", grados: 1752, temp: "-4°C" },
             { nombre: "BEJAR", grados: 1752, temp: "-5°C" }
         ],
+
         "SEGOVIA": [
             { nombre: "SEGOVIA", grados: 1703, temp: "-5°C" }
         ],
+
         "SORIA": [
             { nombre: "SORIA", grados: 2152, temp: "-7°C" }
         ],
+
         "TARRAGONA": [
             { nombre: "VALS", grados: 774, temp: "-1°C" },
             { nombre: "REUS", grados: 774, temp: "-1°C" }
         ],
+
         "TENERIFE": [
             { nombre: "TENERIFE", grados: 3, temp: "14°C" }
         ],
+
         "TERUEL": [
             { nombre: "MORA DE RUBIELOS", grados: 1990, temp: "-6°C" }
         ],
+
         "TOLEDO": [
             { nombre: "TOLEDO", grados: 1252, temp: "-4°C" }
         ],
+
         "VALENCIA": [
             { nombre: "VALENCIA", grados: 439, temp: "5°C" },
             { nombre: "ADEMUZ", grados: 1150, temp: "-3°C" }
         ],
+
         "VALLADOLID": [
             { nombre: "VALLADOLID", grados: 1781, temp: "-4°C" }
         ],
+
         "VIZCAYA": [
             { nombre: "BILBAO", grados: 970, temp: "0°C" }
         ],
+
         "ZARAGOZA": [
             { nombre: "ZARAGOZA", grados: 1150, temp: "-3°C" },
             { nombre: "MONCAYO", grados: 2152, temp: "-7°C" }
@@ -1289,7 +1709,11 @@
     };
 
     function pueblarSelectCiudades() {
-        const select = document.getElementById('select-ciudad');
+
+        const select =
+            document.getElementById(
+                'select-ciudad'
+            );
 
         select.innerHTML =
             '<option value="">-- SELECCIONAR CIUDAD --</option>';
@@ -1297,14 +1721,19 @@
         for (const prov in BASE_CIUDADES) {
 
             const optgroup =
-                document.createElement('optgroup');
+                document.createElement(
+                    'optgroup'
+                );
 
-            optgroup.label = prov;
+            optgroup.label =
+                prov;
 
             BASE_CIUDADES[prov].forEach(c => {
 
                 const opt =
-                    document.createElement('option');
+                    document.createElement(
+                        'option'
+                    );
 
                 opt.value =
                     `${prov}|${c.nombre}`;
@@ -1312,55 +1741,83 @@
                 opt.innerText =
                     `${c.nombre} (${c.grados.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} GDB / ${c.temp})`;
 
-                optgroup.appendChild(opt);
+                optgroup.appendChild(
+                    opt
+                );
             });
 
-            select.appendChild(optgroup);
+            select.appendChild(
+                optgroup
+            );
         }
 
         const optManual =
-            document.createElement('option');
+            document.createElement(
+                'option'
+            );
 
-        optManual.value = "MANUAL";
-        optManual.innerText = "⚙️ OTRA CIUDAD (MANUAL)";
+        optManual.value =
+            "MANUAL";
 
-        select.appendChild(optManual);
+        optManual.innerText =
+            "⚙️ OTRA CIUDAD (MANUAL)";
+
+        select.appendChild(
+            optManual
+        );
     }
 
     function actualizarClimaCiudad() {
 
         const val =
-            document.getElementById('select-ciudad').value;
+            document.getElementById(
+                'select-ciudad'
+            ).value;
 
         const grupoManual =
-            document.getElementById('grupo-input-manual-ciudad');
+            document.getElementById(
+                'grupo-input-manual-ciudad'
+            );
 
         if (val === "MANUAL") {
 
-            grupoManual.style.display = "flex";
+            grupoManual.style.display =
+                "flex";
 
         } else {
 
-            grupoManual.style.display = "none";
+            grupoManual.style.display =
+                "none";
 
             if (!val) return;
 
-            const [prov, ciudadNombre] =
-                val.split('|');
+            const [
+                prov,
+                ciudadNombre
+            ] = val.split('|');
 
             const ciudadData =
-                BASE_CIUDADES[prov].find(
-                    c => c.nombre === ciudadNombre
-                );
+                BASE_CIUDADES[prov]
+                    ?.find(
+                        c =>
+                            c.nombre === ciudadNombre
+                    );
 
             if (ciudadData) {
 
-                document.getElementById('clima-grados').value =
+                document.getElementById(
+                    'clima-grados'
+                ).value =
                     ciudadData.grados
                         .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        .replace(
+                            /\B(?=(\d{3})+(?!\d))/g,
+                            "."
+                        );
 
-                document.getElementById('clima-temp').value =
+                document.getElementById(
+                    'clima-temp'
+                ).value =
                     ciudadData.temp;
             }
         }
@@ -1371,100 +1828,155 @@
         const proyectoData = {
 
             titulo:
-                document.getElementById('titulo').value,
+                document.getElementById(
+                    'titulo'
+                ).value,
 
             referencia:
-                document.getElementById('referencia').value,
+                document.getElementById(
+                    'referencia'
+                ).value,
 
             tubo:
-                document.getElementById('tubo').value,
+                document.getElementById(
+                    'tubo'
+                ).value,
 
             selectCiudad:
-                document.getElementById('select-ciudad').value,
+                document.getElementById(
+                    'select-ciudad'
+                ).value,
 
             inputCiudadManual:
-                document.getElementById('input-ciudad-manual').value,
+                document.getElementById(
+                    'input-ciudad-manual'
+                ).value,
 
             climaGrados:
-                document.getElementById('clima-grados').value,
+                document.getElementById(
+                    'clima-grados'
+                ).value,
 
             climaTemp:
-                document.getElementById('clima-temp').value,
+                document.getElementById(
+                    'clima-temp'
+                ).value,
 
             pavimento:
-                document.getElementById('pavimento').value,
+                document.getElementById(
+                    'pavimento'
+                ).value,
 
             solicitante:
-                document.getElementById('solicitante').value,
+                document.getElementById(
+                    'solicitante'
+                ).value,
 
             telefono:
-                document.getElementById('telefono').value,
+                document.getElementById(
+                    'telefono'
+                ).value,
 
             email:
-                document.getElementById('email').value,
+                document.getElementById(
+                    'email'
+                ).value,
 
             fecha:
-                document.getElementById('fecha').value,
+                document.getElementById(
+                    'fecha'
+                ).value,
 
             tecnico:
-                document.getElementById('tecnico').value,
+                document.getElementById(
+                    'tecnico'
+                ).value,
 
             colaborador:
-                document.getElementById('colaborador').value,
+                document.getElementById(
+                    'colaborador'
+                ).value,
 
             tipoPresupuesto:
-                document.getElementById('tipo-presupuesto').value,
+                document.getElementById(
+                    'tipo-presupuesto'
+                ).value,
 
             usarBurbuja:
-                document.getElementById('usar-burbuja').value,
+                document.getElementById(
+                    'usar-burbuja'
+                ).value,
 
             aclaracionTexto:
-                document.getElementById('val-aclaracion').innerText,
+                document.getElementById(
+                    'val-aclaracion'
+                ).innerText,
 
             estancias: []
         };
 
         const estanciasDOM =
-            document.querySelectorAll('.estancia-box');
+            document.querySelectorAll(
+                '.estancia-box'
+            );
 
         estanciasDOM.forEach(est => {
 
             const planta =
-                est.querySelector('.est-planta').value;
+                est.querySelector(
+                    '.est-planta'
+                ).value;
 
             const nombre =
-                est.querySelector('.est-nombre').value;
+                est.querySelector(
+                    '.est-nombre'
+                ).value;
 
             const m2 =
-                est.querySelector('.est-m2').value;
+                est.querySelector(
+                    '.est-m2'
+                ).value;
 
             const conTubo =
-                est.querySelector('.est-contubo').checked;
+                est.querySelector(
+                    '.est-contubo'
+                ).checked;
 
             const foliosArr = [];
 
             const foliosDOM =
-                est.querySelectorAll('.folio-row');
+                est.querySelectorAll(
+                    '.folio-row'
+                );
 
             foliosDOM.forEach(fol => {
 
                 foliosArr.push({
 
                     ml:
-                        fol.querySelector('.fol-ml').value,
+                        fol.querySelector(
+                            '.fol-ml'
+                        ).value,
 
                     tipo:
-                        fol.querySelector('.fol-tipo').value,
+                        fol.querySelector(
+                            '.fol-tipo'
+                        ).value,
 
                     wcal:
-                        fol.querySelector('.fol-wcal').value,
+                        fol.querySelector(
+                            '.fol-wcal'
+                        ).value,
 
                     cable:
-                        fol.querySelector('.fol-cable').value
+                        fol.querySelector(
+                            '.fol-cable'
+                        ).value
                 });
             });
 
             proyectoData.estancias.push({
+
                 planta,
                 nombre,
                 m2,
@@ -1478,95 +1990,251 @@
 
     function guardarEstadoLocal() {
 
-        const data =
-            obtenerDatosObjetoProyecto();
+        try {
 
-        localStorage.setItem(
-            'cecather_proyecto_data',
-            JSON.stringify(data)
-        );
+            const data =
+                obtenerDatosObjetoProyecto();
+
+            localStorage.setItem(
+                'cecather_proyecto_data',
+                JSON.stringify(data)
+            );
+
+        } catch (e) {
+
+            console.error(
+                "Error guardando estado local:",
+                e
+            );
+        }
     }
+
+    /*
+     * =====================================================
+     * CARGA DE DATOS IMPORTADOS - CORREGIDA
+     * =====================================================
+     */
 
     function cargarDatosEnPantalla(data) {
 
-        document.getElementById('titulo').value =
-            data.titulo || '';
+        if (
+            !data ||
+            typeof data !== 'object'
+        ) {
+            throw new Error(
+                "Los datos del proyecto no son válidos."
+            );
+        }
 
-        document.getElementById('referencia').value =
-            data.referencia || '';
+        /*
+         * DATOS GENERALES
+         */
 
-        document.getElementById('tubo').value =
-            data.tubo || '';
+        document.getElementById(
+            'titulo'
+        ).value =
+            data.titulo ?? '';
 
-        document.getElementById('select-ciudad').value =
-            data.selectCiudad || 'BARCELONA|BARCELONA';
+        document.getElementById(
+            'referencia'
+        ).value =
+            data.referencia ?? '';
+
+        document.getElementById(
+            'tubo'
+        ).value =
+            data.tubo ?? '';
+
+        const selectCiudad =
+            document.getElementById(
+                'select-ciudad'
+            );
+
+        const ciudadImportada =
+            data.selectCiudad ||
+            'BARCELONA|BARCELONA';
+
+        /*
+         * Comprobamos que la ciudad exista antes de
+         * asignarla. Si no existe, usamos manual.
+         */
+
+        const opcionCiudad =
+            Array.from(
+                selectCiudad.options
+            ).find(
+                option =>
+                    option.value ===
+                    ciudadImportada
+            );
+
+        if (opcionCiudad) {
+
+            selectCiudad.value =
+                ciudadImportada;
+
+        } else if (
+            ciudadImportada === "MANUAL"
+        ) {
+
+            selectCiudad.value =
+                "MANUAL";
+
+        } else {
+
+            selectCiudad.value =
+                "BARCELONA|BARCELONA";
+        }
 
         actualizarClimaCiudad();
 
-        document.getElementById('input-ciudad-manual').value =
-            data.inputCiudadManual || 'MANUAL';
+        document.getElementById(
+            'input-ciudad-manual'
+        ).value =
+            data.inputCiudadManual ??
+            'MANUAL';
 
-        document.getElementById('clima-grados').value =
-            data.climaGrados || '865';
+        document.getElementById(
+            'clima-grados'
+        ).value =
+            data.climaGrados ??
+            '865';
 
-        document.getElementById('clima-temp').value =
-            data.climaTemp || '1°C';
+        document.getElementById(
+            'clima-temp'
+        ).value =
+            data.climaTemp ??
+            '1°C';
 
-        document.getElementById('pavimento').value =
-            data.pavimento || '';
+        document.getElementById(
+            'pavimento'
+        ).value =
+            data.pavimento ??
+            '';
 
-        document.getElementById('solicitante').value =
-            data.solicitante || '';
+        document.getElementById(
+            'solicitante'
+        ).value =
+            data.solicitante ??
+            '';
 
-        document.getElementById('telefono').value =
-            data.telefono || '';
+        document.getElementById(
+            'telefono'
+        ).value =
+            data.telefono ??
+            '';
 
-        document.getElementById('email').value =
-            data.email || '';
+        document.getElementById(
+            'email'
+        ).value =
+            data.email ??
+            '';
 
-        document.getElementById('fecha').value =
-            data.fecha || '';
+        document.getElementById(
+            'fecha'
+        ).value =
+            data.fecha ??
+            '';
 
-        document.getElementById('tecnico').value =
-            data.tecnico || '';
+        document.getElementById(
+            'tecnico'
+        ).value =
+            data.tecnico ??
+            '';
 
-        document.getElementById('colaborador').value =
-            data.colaborador || 'estandar';
+        document.getElementById(
+            'colaborador'
+        ).value =
+            data.colaborador ||
+            'estandar';
 
-        document.getElementById('tipo-presupuesto').value =
-            data.tipoPresupuesto || '';
+        document.getElementById(
+            'tipo-presupuesto'
+        ).value =
+            data.tipoPresupuesto ||
+            'PRESUPUESTO SUMINISTRO Y LLAVE EN MANO';
 
-        document.getElementById('usar-burbuja').value =
-            data.usarBurbuja || 'si';
+        document.getElementById(
+            'usar-burbuja'
+        ).value =
+            data.usarBurbuja ||
+            'si';
 
-        if (data.aclaracionTexto) {
+        /*
+         * ACLARACIÓN
+         */
 
-            document.getElementById('val-aclaracion').innerText =
-                data.aclaracionTexto;
-        }
+        document.getElementById(
+            'val-aclaracion'
+        ).innerText =
+            data.aclaracionTexto ||
+            "Hacer clic para escribir aclaración...";
 
-        document.getElementById('estancias-container').innerHTML = '';
+        /*
+         * ESTANCIAS
+         */
+
+        const contenedor =
+            document.getElementById(
+                'estancias-container'
+            );
+
+        contenedor.innerHTML = '';
+
+        /*
+         * IMPORTANTE:
+         * Reiniciamos el contador para no generar
+         * IDs duplicados después de importar.
+         */
+
+        estanciaCount = 0;
 
         if (
-            data.estancias &&
+            Array.isArray(
+                data.estancias
+            ) &&
             data.estancias.length > 0
         ) {
 
-            data.estancias.forEach(e => {
+            data.estancias.forEach(
+                e => {
 
-                let p =
-                    e.planta ||
-                    data.planta ||
-                    'BAJA';
+                    const planta =
+                        e.planta ??
+                        'BAJA';
 
-                agregarEstanciaConDatos(
-                    p,
-                    e.nombre,
-                    e.m2,
-                    e.conTubo || false,
-                    e.folios
-                );
-            });
+                    const nombre =
+                        e.nombre ??
+                        '';
+
+                    const m2 =
+                        e.m2 ??
+                        '';
+
+                    /*
+                     * Compatibilidad con JSON antiguos:
+                     * si no existe conTubo, será false.
+                     */
+
+                    const conTubo =
+                        e.conTubo === true;
+
+                    const folios =
+                        Array.isArray(
+                            e.folios
+                        )
+                            ? e.folios
+                            : [];
+
+                    agregarEstanciaConDatos(
+                        planta,
+                        nombre,
+                        m2,
+                        conTubo,
+                        folios
+                    );
+                }
+            );
 
         } else {
 
@@ -1594,41 +2262,58 @@
             try {
 
                 const data =
-                    JSON.parse(guardado);
+                    JSON.parse(
+                        guardado
+                    );
 
-                cargarDatosEnPantalla(data);
+                cargarDatosEnPantalla(
+                    data
+                );
 
                 return;
 
             } catch(e) {
 
                 console.error(
-                    "Error al cargar localstorage",
+                    "Error al cargar localstorage:",
                     e
+                );
+
+                localStorage.removeItem(
+                    'cecather_proyecto_data'
                 );
             }
         }
 
-        document.getElementById('select-ciudad').value =
+        document.getElementById(
+            'select-ciudad'
+        ).value =
             'BARCELONA|BARCELONA';
 
         actualizarClimaCiudad();
 
-        document.getElementById('colaborador').value =
+        document.getElementById(
+            'colaborador'
+        ).value =
             'estandar';
 
-        DATOS_ORIGINALES.forEach(e => {
+        DATOS_ORIGINALES.forEach(
+            e => {
 
-            agregarEstanciaConDatos(
-                e.planta,
-                e.nombre,
-                e.m2,
-                e.conTubo || false,
-                e.folios
-            );
-        });
+                agregarEstanciaConDatos(
+                    e.planta,
+                    e.nombre,
+                    e.m2,
+                    e.conTubo ||
+                    false,
+                    e.folios
+                );
+            }
+        );
 
-        document.getElementById('val-aclaracion').innerText =
+        document.getElementById(
+            'val-aclaracion'
+        ).innerText =
             "Hacer clic para escribir aclaración...";
 
         verificarAclaracion();
@@ -1642,16 +2327,46 @@
             )
         ) {
 
-            document.getElementById('titulo').value = "";
-            document.getElementById('referencia').value = "";
-            document.getElementById('tubo').value = "";
-            document.getElementById('solicitante').value = "";
-            document.getElementById('telefono').value = "";
-            document.getElementById('email').value = "";
+            document.getElementById(
+                'titulo'
+            ).value =
+                "";
 
-            document.getElementById('estancias-container').innerHTML = "";
+            document.getElementById(
+                'referencia'
+            ).value =
+                "";
 
-            document.getElementById('val-aclaracion').innerText =
+            document.getElementById(
+                'tubo'
+            ).value =
+                "";
+
+            document.getElementById(
+                'solicitante'
+            ).value =
+                "";
+
+            document.getElementById(
+                'telefono'
+            ).value =
+                "";
+
+            document.getElementById(
+                'email'
+            ).value =
+                "";
+
+            document.getElementById(
+                'estancias-container'
+            ).innerHTML =
+                '';
+
+            estanciaCount = 0;
+
+            document.getElementById(
+                'val-aclaracion'
+            ).innerText =
                 "Hacer clic para escribir aclaración...";
 
             agregarEstanciaConDatos(
@@ -1663,159 +2378,348 @@
             );
 
             verificarAclaracion();
+
             guardarEstadoLocal();
+
             generarTodo();
         }
     }
 
+    /*
+     * =====================================================
+     * EXPORTACIÓN
+     * =====================================================
+     */
+
     function exportarProyectoArchivo() {
 
-        const data =
-            obtenerDatosObjetoProyecto();
+        try {
 
-        const dataStr =
-            "data:text/json;charset=utf-8," +
-            encodeURIComponent(
-                JSON.stringify(data, null, 2)
+            const data =
+                obtenerDatosObjetoProyecto();
+
+            const json =
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                );
+
+            const blob =
+                new Blob(
+                    [json],
+                    {
+                        type:
+                            'application/json;charset=utf-8'
+                    }
+                );
+
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
+
+            const downloadAnchor =
+                document.createElement('a');
+
+            const nombreArchivo =
+                (
+                    data.titulo
+                        ? data.titulo
+                            .replace(
+                                /[^a-z0-9]/gi,
+                                '_'
+                            )
+                            .toLowerCase()
+                        : 'proyecto'
+                ) + '.json';
+
+            downloadAnchor.href =
+                url;
+
+            downloadAnchor.download =
+                nombreArchivo;
+
+            document.body.appendChild(
+                downloadAnchor
             );
 
-        const downloadAnchor =
-            document.createElement('a');
+            downloadAnchor.click();
 
-        downloadAnchor.setAttribute(
-            "href",
-            dataStr
-        );
+            downloadAnchor.remove();
 
-        let nombreArchivo =
-            (
-                data.titulo
-                    ? data.titulo.replace(/[^a-z0-9]/gi, '_').toLowerCase()
-                    : 'proyecto'
-            ) + '.json';
+            setTimeout(
+                () => {
+                    URL.revokeObjectURL(
+                        url
+                    );
+                },
+                1000
+            );
 
-        downloadAnchor.setAttribute(
-            "download",
-            nombreArchivo
-        );
+        } catch (err) {
 
-        document.body.appendChild(
-            downloadAnchor
-        );
+            console.error(
+                "Error exportando proyecto:",
+                err
+            );
 
-        downloadAnchor.click();
-
-        downloadAnchor.remove();
+            alert(
+                "No se pudo exportar el proyecto:\n\n" +
+                err.message
+            );
+        }
     }
 
     /*
-     * CORREGIDO:
-     * Ahora los errores internos de la aplicación
-     * no se muestran como si el JSON estuviera dañado.
+     * =====================================================
+     * IMPORTACIÓN CORREGIDA
+     * =====================================================
      */
+
     function importarProyectoArchivo(event) {
 
         const file =
+            event.target.files &&
             event.target.files[0];
 
-        if (!file) return;
+        if (!file) {
+            return;
+        }
 
         const reader =
             new FileReader();
 
-        reader.onload = function(e) {
+        reader.onload =
+            function(e) {
 
-            try {
+                try {
 
-                const contenido =
-                    e.target.result;
+                    let contenido =
+                        e.target.result;
 
-                const data =
-                    JSON.parse(contenido);
+                    /*
+                     * Eliminamos BOM y espacios invisibles
+                     */
 
-                cargarDatosEnPantalla(data);
+                    contenido =
+                        contenido
+                            .replace(
+                                /^\uFEFF/,
+                                ''
+                            )
+                            .trim();
 
-                guardarEstadoLocal();
+                    if (!contenido) {
 
-                generarTodo();
+                        throw new Error(
+                            "El archivo está vacío."
+                        );
+                    }
 
-                alert(
-                    "¡Proyecto importado correctamente!"
-                );
+                    /*
+                     * Convertimos el texto a JSON
+                     */
 
-            } catch (err) {
+                    const data =
+                        JSON.parse(
+                            contenido
+                        );
+
+                    /*
+                     * Validaciones básicas
+                     */
+
+                    if (
+                        typeof data !==
+                        'object' ||
+                        data === null ||
+                        Array.isArray(data)
+                    ) {
+
+                        throw new Error(
+                            "El archivo no contiene un objeto JSON válido."
+                        );
+                    }
+
+                    if (
+                        !Array.isArray(
+                            data.estancias
+                        )
+                    ) {
+
+                        throw new Error(
+                            "El archivo no contiene la estructura de un proyecto Cecather."
+                        );
+                    }
+
+                    /*
+                     * Cargamos el proyecto.
+                     */
+
+                    cargarDatosEnPantalla(
+                        data
+                    );
+
+                    /*
+                     * Guardamos solo después
+                     * de que la carga haya terminado.
+                     */
+
+                    guardarEstadoLocal();
+
+                    /*
+                     * Generamos las vistas.
+                     */
+
+                    generarTodo();
+
+                    alert(
+                        "¡Proyecto importado correctamente!"
+                    );
+
+                } catch (err) {
+
+                    console.error(
+                        "ERROR REAL AL IMPORTAR:",
+                        err
+                    );
+
+                    console.error(
+                        "CONTENIDO DEL ARCHIVO:",
+                        e.target.result
+                    );
+
+                    alert(
+                        "No se ha podido importar el proyecto.\n\n" +
+                        "Error: " +
+                        err.message
+                    );
+                }
+
+                /*
+                 * Permite volver a seleccionar
+                 * exactamente el mismo archivo.
+                 */
+
+                event.target.value =
+                    '';
+            };
+
+        reader.onerror =
+            function() {
 
                 console.error(
-                    "Error al importar proyecto:",
-                    err
+                    "Error leyendo archivo:",
+                    reader.error
                 );
 
                 alert(
-                    "Error al importar el proyecto: " +
-                    err.message
+                    "No se ha podido leer el archivo seleccionado."
                 );
-            }
 
-            event.target.value = '';
-        };
+                event.target.value =
+                    '';
+            };
 
-        reader.onerror = function() {
-
-            alert(
-                "No se pudo leer el archivo seleccionado."
-            );
-
-            event.target.value = '';
-        };
-
-        reader.readAsText(file);
+        reader.readAsText(
+            file,
+            'UTF-8'
+        );
     }
+
+    /*
+     * =====================================================
+     * IMPORTACIÓN ESTUDIO INICIAL
+     * =====================================================
+     */
 
     function importarEstudioInicial(event) {
 
         const file =
+            event.target.files &&
             event.target.files[0];
 
-        if (!file) return;
+        if (!file) {
+            return;
+        }
 
         const reader =
             new FileReader();
 
-        reader.onload = function(e) {
+        reader.onload =
+            function(e) {
 
-            try {
+                try {
 
-                datosEstudioInicial =
-                    JSON.parse(e.target.result);
+                    let contenido =
+                        e.target.result
+                            .replace(
+                                /^\uFEFF/,
+                                ''
+                            )
+                            .trim();
+
+                    datosEstudioInicial =
+                        JSON.parse(
+                            contenido
+                        );
+
+                    if (
+                        !datosEstudioInicial ||
+                        typeof datosEstudioInicial !==
+                        'object'
+                    ) {
+
+                        throw new Error(
+                            "El archivo no contiene un proyecto válido."
+                        );
+                    }
+
+                    alert(
+                        "Estudio Inicial cargado para comparativa."
+                    );
+
+                    generarTodo();
+
+                } catch (err) {
+
+                    console.error(
+                        "Error al cargar estudio inicial:",
+                        err
+                    );
+
+                    alert(
+                        "El archivo no es válido:\n\n" +
+                        err.message
+                    );
+                }
+
+                event.target.value =
+                    '';
+            };
+
+        reader.onerror =
+            function() {
 
                 alert(
-                    "Estudio Inicial cargado para comparativa."
+                    "No se pudo leer el archivo seleccionado."
                 );
 
-                generarTodo();
+                event.target.value =
+                    '';
+            };
 
-            } catch (err) {
-
-                console.error(
-                    "Error al cargar estudio inicial:",
-                    err
-                );
-
-                alert(
-                    "El archivo no es válido: " +
-                    err.message
-                );
-            }
-
-            event.target.value = '';
-        };
-
-        reader.readAsText(file);
+        reader.readAsText(
+            file,
+            'UTF-8'
+        );
     }
 
     function limpiarEstudioInicial() {
 
-        datosEstudioInicial = null;
+        datosEstudioInicial =
+            null;
 
         generarTodo();
     }
@@ -1834,62 +2738,96 @@
 
             document.getElementById(
                 'estancias-container'
-            ).innerHTML = '';
+            ).innerHTML =
+                '';
 
-            document.getElementById('titulo').value =
+            estanciaCount = 0;
+
+            document.getElementById(
+                'titulo'
+            ).value =
                 "VIVIENDA UNIFAMILIAR";
 
-            document.getElementById('referencia').value =
+            document.getElementById(
+                'referencia'
+            ).value =
                 "25F-78950 (REVISIÓN 15.06.26)";
 
-            document.getElementById('tubo').value =
+            document.getElementById(
+                'tubo'
+            ).value =
                 "INSTALACIÓN DIRECTA - SIN TUBO";
 
-            document.getElementById('select-ciudad').value =
+            document.getElementById(
+                'select-ciudad'
+            ).value =
                 "BARCELONA|BARCELONA";
 
             actualizarClimaCiudad();
 
-            document.getElementById('pavimento').value =
+            document.getElementById(
+                'pavimento'
+            ).value =
                 "PAVIMENTO TARIMA";
 
-            document.getElementById('solicitante').value =
+            document.getElementById(
+                'solicitante'
+            ).value =
                 "CLIENTE EJEMPLO";
 
-            document.getElementById('telefono').value =
+            document.getElementById(
+                'telefono'
+            ).value =
                 "-";
 
-            document.getElementById('email').value =
+            document.getElementById(
+                'email'
+            ).value =
                 "-";
 
-            document.getElementById('fecha').value =
+            document.getElementById(
+                'fecha'
+            ).value =
                 "18.08.26";
 
-            document.getElementById('tecnico').value =
+            document.getElementById(
+                'tecnico'
+            ).value =
                 "Amy Montero";
 
-            document.getElementById('colaborador').value =
+            document.getElementById(
+                'colaborador'
+            ).value =
                 "estandar";
 
-            document.getElementById('tipo-presupuesto').value =
+            document.getElementById(
+                'tipo-presupuesto'
+            ).value =
                 "PRESUPUESTO SUMINISTRO Y LLAVE EN MANO";
 
-            document.getElementById('usar-burbuja').value =
+            document.getElementById(
+                'usar-burbuja'
+            ).value =
                 "si";
 
-            document.getElementById('val-aclaracion').innerText =
+            document.getElementById(
+                'val-aclaracion'
+            ).innerText =
                 "Hacer clic para escribir aclaración...";
 
-            DATOS_ORIGINALES.forEach(e => {
+            DATOS_ORIGINALES.forEach(
+                e => {
 
-                agregarEstanciaConDatos(
-                    e.planta,
-                    e.nombre,
-                    e.m2,
-                    e.conTubo || false,
-                    e.folios
-                );
-            });
+                    agregarEstanciaConDatos(
+                        e.planta,
+                        e.nombre,
+                        e.m2,
+                        e.conTubo ||
+                        false,
+                        e.folios
+                    );
+                }
+            );
 
             verificarAclaracion();
 
@@ -1900,26 +2838,42 @@
     function switchTab(tabId) {
 
         document
-            .querySelectorAll('.tab-button')
-            .forEach(btn =>
-                btn.classList.remove('active')
+            .querySelectorAll(
+                '.tab-button'
+            )
+            .forEach(
+                btn =>
+                    btn.classList.remove(
+                        'active'
+                    )
             );
 
         document
-            .querySelectorAll('.tab-content')
-            .forEach(content =>
-                content.classList.remove('active')
+            .querySelectorAll(
+                '.tab-content'
+            )
+            .forEach(
+                content =>
+                    content.classList.remove(
+                        'active'
+                    )
             );
 
         document
             .querySelector(
                 `button[onclick="switchTab('${tabId}')"]`
             )
-            .classList.add('active');
+            .classList.add(
+                'active'
+            );
 
         document
-            .getElementById(tabId)
-            .classList.add('active');
+            .getElementById(
+                tabId
+            )
+            .classList.add(
+                'active'
+            );
     }
 
     function formatearNumero(num) {
@@ -1950,7 +2904,10 @@
 
         return num
             .toFixed(2)
-            .replace(".", ",")
+            .replace(
+                ".",
+                ","
+            )
             .replace(
                 /\B(?=(\d{3})+(?!\d))/g,
                 "."
@@ -1974,45 +2931,73 @@
 
         if (data.estancias) {
 
-            data.estancias.forEach(est => {
+            data.estancias.forEach(
+                est => {
 
-                totalM2 +=
-                    parseFloat(est.m2) || 0;
+                    totalM2 +=
+                        parseFloat(
+                            est.m2
+                        ) || 0;
 
-                if (est.folios) {
+                    if (est.folios) {
 
-                    est.folios.forEach(fol => {
+                        est.folios.forEach(
+                            fol => {
 
-                        const ml =
-                            parseFloat(fol.ml) || 0;
+                                const ml =
+                                    parseFloat(
+                                        fol.ml
+                                    ) || 0;
 
-                        const tipo =
-                            parseInt(fol.tipo) || 75;
+                                const tipo =
+                                    parseInt(
+                                        fol.tipo
+                                    ) || 75;
 
-                        totalML += ml;
+                                totalML +=
+                                    ml;
 
-                        udFolio++;
+                                udFolio++;
 
-                        totalWCol +=
-                            ml * tipo;
+                                totalWCol +=
+                                    ml *
+                                    tipo;
 
-                        if (tipo === 75)
-                            ml75 += ml;
+                                if (
+                                    tipo ===
+                                    75
+                                ) {
+                                    ml75 +=
+                                        ml;
+                                }
 
-                        if (tipo === 116)
-                            ml116 += ml;
+                                if (
+                                    tipo ===
+                                    116
+                                ) {
+                                    ml116 +=
+                                        ml;
+                                }
 
-                        if (tipo === 150)
-                            ml150 += ml;
-                    });
+                                if (
+                                    tipo ===
+                                    150
+                                ) {
+                                    ml150 +=
+                                        ml;
+                                }
+                            }
+                        );
+                    }
                 }
-            });
+            );
         }
 
         const densMedia =
             totalM2 > 0
                 ? Math.round(
-                    totalWCol / totalM2
+                    totalWCol /
+                    totalM2
                 )
                 : 0;
 
@@ -2026,7 +3011,9 @@
             totalML,
             udFolio,
             cronos,
-            fecha: data.fecha || '-'
+            fecha:
+                data.fecha ||
+                '-'
         };
     }
 
@@ -2037,25 +3024,33 @@
                 '.estancia-box'
             );
 
-        estancias.forEach(est => {
+        estancias.forEach(
+            est => {
 
-            const folios =
-                est.querySelectorAll(
-                    '.folio-row'
-                );
-
-            folios.forEach((folio, index) => {
-
-                const badge =
-                    folio.querySelector(
-                        '.folio-badge'
+                const folios =
+                    est.querySelectorAll(
+                        '.folio-row'
                     );
 
-                if (badge) {
-                    badge.innerText = `Folio`;
-                }
-            });
-        });
+                folios.forEach(
+                    (
+                        folio,
+                        index
+                    ) => {
+
+                        const badge =
+                            folio.querySelector(
+                                '.folio-badge'
+                            );
+
+                        if (badge) {
+                            badge.innerText =
+                                `Folio`;
+                        }
+                    }
+                );
+            }
+        );
     }
 
     function agregarEstancia() {
@@ -2085,7 +3080,9 @@
             estanciaCount;
 
         const div =
-            document.createElement('div');
+            document.createElement(
+                'div'
+            );
 
         div.className =
             'estancia-box';
@@ -2095,57 +3092,71 @@
 
         div.innerHTML = `
 
-            <div style="display: grid; grid-template-columns: 120px 1fr 140px 140px; gap: 10px; margin-bottom: 8px; align-items: end;">
+            <div
+                style="display: grid; grid-template-columns: 120px 1fr 140px 140px; gap: 10px; margin-bottom: 8px; align-items: end;">
 
                 <div class="form-group">
 
-                    <label>Planta</label>
+                    <label>
+                        Planta
+                    </label>
 
-                    <input type="text"
-                           class="est-planta"
-                           placeholder="Ej. 0, -1, ALTA"
-                           value="${plantaVal}"
-                           oninput="guardarEstadoLocal();">
+                    <input
+                        type="text"
+                        class="est-planta"
+                        placeholder="Ej. 0, -1, ALTA"
+                        value="${plantaVal}"
+                        oninput="guardarEstadoLocal();">
 
                 </div>
 
                 <div class="form-group">
 
-                    <label>Nombre del Hueco / Estancia</label>
+                    <label>
+                        Nombre del Hueco / Estancia
+                    </label>
 
-                    <input type="text"
-                           class="est-nombre"
-                           placeholder="Ej. PASILLO, SALÓN..."
-                           value="${nombreVal}"
-                           oninput="calcularEstancia(${id}); guardarEstadoLocal();">
+                    <input
+                        type="text"
+                        class="est-nombre"
+                        placeholder="Ej. PASILLO, SALÓN..."
+                        value="${nombreVal}"
+                        oninput="calcularEstancia(${id}); guardarEstadoLocal();">
 
                 </div>
 
                 <div class="form-group">
 
-                    <label>Superficie (m²)</label>
+                    <label>
+                        Superficie (m²)
+                    </label>
 
-                    <input type="number"
-                           step="0.01"
-                           class="est-m2"
-                           placeholder="0.00"
-                           value="${m2Val}"
-                           oninput="calcularEstancia(${id}); guardarEstadoLocal();">
+                    <input
+                        type="number"
+                        step="0.01"
+                        class="est-m2"
+                        placeholder="0.00"
+                        value="${m2Val}"
+                        oninput="calcularEstancia(${id}); guardarEstadoLocal();">
 
                 </div>
 
-                <div class="form-group"
-                     style="justify-content: center; height: 100%;">
+                <div
+                    class="form-group"
+                    style="justify-content: center; height: 100%;">
 
-                    <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; height: 34px; background: #fff; padding: 0 10px; border: 1px solid var(--border-color); border-radius: 6px; margin: 0;">
+                    <label
+                        style="display: flex; align-items: center; gap: 6px; cursor: pointer; height: 34px; background: #fff; padding: 0 10px; border: 1px solid var(--border-color); border-radius: 6px; margin: 0;">
 
-                        <input type="checkbox"
-                               class="est-contubo"
-                               ${conTuboVal ? 'checked' : ''}
-                               onchange="guardarEstadoLocal();"
-                               style="width: auto;">
+                        <input
+                            type="checkbox"
+                            class="est-contubo"
+                            ${conTuboVal ? 'checked' : ''}
+                            onchange="guardarEstadoLocal();"
+                            style="width: auto;">
 
-                        <span style="font-size: 11px; font-weight: 800; color: #000;">
+                        <span
+                            style="font-size: 11px; font-weight: 800; color: #000;">
                             CON TUBO
                         </span>
 
@@ -2158,42 +3169,63 @@
             <div class="live-stats">
 
                 <div class="stat-badge">
+
                     Densidad proyectada:
-                    <strong id="live-wm2-${id}">0</strong> W/m²
+
+                    <strong
+                        id="live-wm2-${id}">
+                        0
+                    </strong>
+
+                    W/m²
+
                 </div>
 
-                <div style="color: #CBD5E1;">|</div>
+                <div
+                    style="color: #CBD5E1;">
+                    |
+                </div>
 
                 <div class="stat-badge">
+
                     Potencia colocada:
-                    <strong id="live-wcol-${id}">0</strong> W
+
+                    <strong
+                        id="live-wcol-${id}">
+                        0
+                    </strong>
+
+                    W
+
                 </div>
 
             </div>
 
             <div>
 
-                <label style="margin-bottom: 6px; display:block;">
+                <label
+                    style="margin-bottom: 6px; display:block;">
                     Desglose de Folios Radiantes
                 </label>
 
-                <div id="folios-container-${id}"></div>
+                <div
+                    id="folios-container-${id}">
+                </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
 
-                    <button class="btn btn-outline"
-                            style="padding: 4px 8px; font-size: 11px;"
-                            onclick="agregarFolio(${id}); guardarEstadoLocal();">
-
+                    <button
+                        class="btn btn-outline"
+                        style="padding: 4px 8px; font-size: 11px;"
+                        onclick="agregarFolio(${id}); guardarEstadoLocal();">
                         + Añadir Folio
-
                     </button>
 
-                    <button class="btn btn-danger"
-                            onclick="eliminarEstancia(${id})">
-
+                    <button
+                        class="btn btn-danger"
+                        onclick="eliminarEstancia(${id})">
                         Eliminar Hueco
-
                     </button>
 
                 </div>
@@ -2201,28 +3233,32 @@
             </div>
         `;
 
-        document
-            .getElementById(
-                'estancias-container'
-            )
-            .appendChild(div);
+        document.getElementById(
+            'estancias-container'
+        ).appendChild(
+            div
+        );
 
         if (
-            foliosArr &&
+            Array.isArray(
+                foliosArr
+            ) &&
             foliosArr.length > 0
         ) {
 
-            foliosArr.forEach(f => {
+            foliosArr.forEach(
+                f => {
 
-                agregarFolio(
-                    id,
-                    f.ml,
-                    f.tipo,
-                    f.wcal,
-                    f.cable,
-                    false
-                );
-            });
+                    agregarFolio(
+                        id,
+                        f.ml ?? "",
+                        f.tipo ?? 75,
+                        f.wcal ?? "",
+                        f.cable ?? "",
+                        false
+                    );
+                }
+            );
 
         } else {
 
@@ -2244,7 +3280,9 @@
                 '.estancia-box'
             );
 
-        if (estancias.length > 1) {
+        if (
+            estancias.length > 1
+        ) {
 
             document
                 .getElementById(
@@ -2279,7 +3317,9 @@
             );
 
         const folioDiv =
-            document.createElement('div');
+            document.createElement(
+                'div'
+            );
 
         folioDiv.className =
             'folio-row';
@@ -2296,12 +3336,13 @@
                     Metros (ML)
                 </label>
 
-                <input type="number"
-                       step="0.25"
-                       class="fol-ml"
-                       placeholder="0.00"
-                       value="${mlVal}"
-                       oninput="actualizarFolio(this, ${estanciaId}); guardarEstadoLocal();">
+                <input
+                    type="number"
+                    step="0.25"
+                    class="fol-ml"
+                    placeholder="0.00"
+                    value="${mlVal}"
+                    oninput="actualizarFolio(this, ${estanciaId}); guardarEstadoLocal();">
 
             </div>
 
@@ -2311,11 +3352,12 @@
                     Módulos
                 </label>
 
-                <input type="number"
-                       class="fol-mod"
-                       placeholder="Módulos"
-                       readonly
-                       style="background:#E2E8F0; text-align:center; font-weight:bold;">
+                <input
+                    type="number"
+                    class="fol-mod"
+                    placeholder="Módulos"
+                    readonly
+                    style="background:#E2E8F0; text-align:center; font-weight:bold;">
 
             </div>
 
@@ -2325,11 +3367,12 @@
                     W. CAL. (OPCIONAL)
                 </label>
 
-                <input type="text"
-                       class="fol-wcal"
-                       placeholder="Opcional"
-                       value="${wcalVal}"
-                       oninput="guardarEstadoLocal()">
+                <input
+                    type="text"
+                    class="fol-wcal"
+                    placeholder="Opcional"
+                    value="${wcalVal}"
+                    oninput="guardarEstadoLocal()">
 
             </div>
 
@@ -2339,11 +3382,12 @@
                     CABLE
                 </label>
 
-                <input type="text"
-                       class="fol-cable"
-                       placeholder="Ej. 3M, 5M..."
-                       value="${cableVal}"
-                       oninput="guardarEstadoLocal()">
+                <input
+                    type="text"
+                    class="fol-cable"
+                    placeholder="Ej. 3M, 5M..."
+                    value="${cableVal}"
+                    oninput="guardarEstadoLocal()">
 
             </div>
 
@@ -2353,24 +3397,28 @@
                     Potencia W/ML
                 </label>
 
-                <select class="fol-tipo txt-${tipoVal}"
-                        onchange="cambiarColorTipo(this); calcularEstancia(${estanciaId}); guardarEstadoLocal();">
+                <select
+                    class="fol-tipo txt-${tipoVal}"
+                    onchange="cambiarColorTipo(this); calcularEstancia(${estanciaId}); guardarEstadoLocal();">
 
-                    <option value="75"
-                            class="txt-75"
-                            ${tipoVal == 75 ? 'selected' : ''}>
+                    <option
+                        value="75"
+                        class="txt-75"
+                        ${tipoVal == 75 ? 'selected' : ''}>
                         75 W/ML
                     </option>
 
-                    <option value="116"
-                            class="txt-116"
-                            ${tipoVal == 116 ? 'selected' : ''}>
+                    <option
+                        value="116"
+                        class="txt-116"
+                        ${tipoVal == 116 ? 'selected' : ''}>
                         116 W/ML
                     </option>
 
-                    <option value="150"
-                            class="txt-150"
-                            ${tipoVal == 150 ? 'selected' : ''}>
+                    <option
+                        value="150"
+                        class="txt-150"
+                        ${tipoVal == 150 ? 'selected' : ''}>
                         150 W/ML
                     </option>
 
@@ -2378,22 +3426,28 @@
 
             </div>
 
-            <button class="btn btn-danger"
-                    onclick="this.closest('.folio-row').remove(); reordenarTodosLosFolios(); calcularEstancia(${estanciaId}); guardarEstadoLocal();">
-
+            <button
+                class="btn btn-danger"
+                onclick="this.closest('.folio-row').remove(); reordenarTodosLosFolios(); calcularEstancia(${estanciaId}); guardarEstadoLocal();">
                 ✕
-
             </button>
         `;
 
-        container.appendChild(folioDiv);
+        container.appendChild(
+            folioDiv
+        );
 
         const inputMl =
             folioDiv.querySelector(
                 '.fol-ml'
             );
 
-        if (mlVal !== "") {
+        if (
+            mlVal !== "" &&
+            mlVal !== null &&
+            mlVal !== undefined
+        ) {
+
             actualizarFolio(
                 inputMl,
                 estanciaId
@@ -2411,7 +3465,9 @@
         }
     }
 
-    function cambiarColorTipo(selectElement) {
+    function cambiarColorTipo(
+        selectElement
+    ) {
 
         const val =
             selectElement.value;
@@ -2426,16 +3482,24 @@
     ) {
 
         const ml =
-            parseFloat(input.value) || 0;
+            parseFloat(
+                input.value
+            ) || 0;
 
         const row =
-            input.closest('.folio-row');
+            input.closest(
+                '.folio-row'
+            );
 
         const modInput =
-            row.querySelector('.fol-mod');
+            row.querySelector(
+                '.fol-mod'
+            );
 
         modInput.value =
-            Math.round(ml / 0.25);
+            Math.round(
+                ml / 0.25
+            );
 
         calcularEstancia(
             estanciaId
@@ -2443,17 +3507,23 @@
     }
 
     /*
-     * CORREGIDO:
-     * Se eliminó el uso de "id", que no existía en esta función.
+     * =====================================================
+     * CALCULAR ESTANCIA - CORREGIDO
+     * =====================================================
      */
-    function calcularEstancia(estanciaId) {
+
+    function calcularEstancia(
+        estanciaId
+    ) {
 
         const est =
             document.getElementById(
                 `estancia-${estanciaId}`
             );
 
-        if (!est) return;
+        if (!est) {
+            return;
+        }
 
         const m2 =
             parseFloat(
@@ -2469,25 +3539,27 @@
 
         let totalWatts = 0;
 
-        folios.forEach(fol => {
+        folios.forEach(
+            fol => {
 
-            const ml =
-                parseFloat(
-                    fol.querySelector(
-                        '.fol-ml'
-                    ).value
-                ) || 0;
+                const ml =
+                    parseFloat(
+                        fol.querySelector(
+                            '.fol-ml'
+                        ).value
+                    ) || 0;
 
-            const tipo =
-                parseInt(
-                    fol.querySelector(
-                        '.fol-tipo'
-                    ).value
-                ) || 75;
+                const tipo =
+                    parseInt(
+                        fol.querySelector(
+                            '.fol-tipo'
+                        ).value
+                    ) || 75;
 
-            totalWatts +=
-                ml * tipo;
-        });
+                totalWatts +=
+                    ml * tipo;
+            }
+        );
 
         const liveWm2 =
             m2 > 0
@@ -2526,49 +3598,73 @@
     function generarTodo() {
 
         const titulo =
-            document.getElementById('titulo').value ||
+            document.getElementById(
+                'titulo'
+            ).value ||
             'VIVIENDA UNIFAMILIAR';
 
         const ref =
-            document.getElementById('referencia').value ||
+            document.getElementById(
+                'referencia'
+            ).value ||
             '-';
 
         const tubo =
-            document.getElementById('tubo').value ||
+            document.getElementById(
+                'tubo'
+            ).value ||
             'INSTALACIÓN DIRECTA - SIN TUBO';
 
         const solicitante =
-            document.getElementById('solicitante').value ||
+            document.getElementById(
+                'solicitante'
+            ).value ||
             '-';
 
         const telefono =
-            document.getElementById('telefono').value ||
+            document.getElementById(
+                'telefono'
+            ).value ||
             '-';
 
         const email =
-            document.getElementById('email').value ||
+            document.getElementById(
+                'email'
+            ).value ||
             '-';
 
         const pavimento =
-            document.getElementById('pavimento').value ||
+            document.getElementById(
+                'pavimento'
+            ).value ||
             'PAVIMENTO TARIMA';
 
         const fecha =
-            document.getElementById('fecha').value ||
+            document.getElementById(
+                'fecha'
+            ).value ||
             '18.08.26';
 
         const tecnico =
-            document.getElementById('tecnico').value ||
+            document.getElementById(
+                'tecnico'
+            ).value ||
             'Amy Montero';
 
         const presTipo =
-            document.getElementById('tipo-presupuesto').value;
+            document.getElementById(
+                'tipo-presupuesto'
+            ).value;
 
         const usarBurbuja =
-            document.getElementById('usar-burbuja').value;
+            document.getElementById(
+                'usar-burbuja'
+            ).value;
 
         const colabSelect =
-            document.getElementById('colaborador').value;
+            document.getElementById(
+                'colaborador'
+            ).value;
 
         const selectCiudadVal =
             document.getElementById(
@@ -2578,7 +3674,10 @@
         let nombreCiudadRef =
             "BARCELONA";
 
-        if (selectCiudadVal === "MANUAL") {
+        if (
+            selectCiudadVal ===
+            "MANUAL"
+        ) {
 
             nombreCiudadRef =
                 document.getElementById(
@@ -2586,25 +3685,39 @@
                 ).value ||
                 "MANUAL";
 
-        } else if (selectCiudadVal) {
+        } else if (
+            selectCiudadVal
+        ) {
 
-            nombreCiudadRef =
-                selectCiudadVal.split('|')[1];
+            const partesCiudad =
+                selectCiudadVal.split(
+                    '|'
+                );
+
+            if (
+                partesCiudad.length > 1
+            ) {
+                nombreCiudadRef =
+                    partesCiudad[1];
+            }
         }
 
         const gradosDiaRaw =
             document.getElementById(
                 'clima-grados'
-            ).value || '865';
+            ).value ||
+            '865';
 
         const tempExt =
             document.getElementById(
                 'clima-temp'
-            ).value || '0°C';
+            ).value ||
+            '0°C';
 
         document.getElementById(
             'res-fecha'
-        ).innerText = fecha;
+        ).innerText =
+            fecha;
 
         document.getElementById(
             'res-titulo'
@@ -2624,6 +3737,7 @@
         ) {
 
             htmlComercial += `
+
                 <div>
                     <strong>
                         GESTIÓN: FRANCESC NOGUES T/ 627 954 970
@@ -2637,8 +3751,9 @@
                 </div>
 
                 <div>
-                    <a href="mailto:francesc@cecather.com"
-                       style="color:var(--color-75); text-decoration:none;">
+                    <a
+                        href="mailto:francesc@cecather.com"
+                        style="color:var(--color-75); text-decoration:none;">
                         francesc@cecather.com
                     </a>
                 </div>
@@ -2651,12 +3766,16 @@
 
             <div>
                 <strong>SOLICITANTE:</strong>
-                <span>${solicitante.toUpperCase()}</span>
+                <span>
+                    ${solicitante.toUpperCase()}
+                </span>
             </div>
 
             <div>
                 <strong>T/</strong>
-                <span>${telefono}</span>
+                <span>
+                    ${telefono}
+                </span>
             </div>
 
             <div>
@@ -2669,46 +3788,77 @@
             <br>
 
             <div>
-                <strong>*${pavimento.toUpperCase()}</strong>
+                <strong>
+                    *${pavimento.toUpperCase()}
+                </strong>
             </div>
 
             <div>
-                <strong>*${tubo.toUpperCase()}</strong>
-            </div>
-
-            <br>
-
-            <div class="txt-red-highlight">
-                <strong>*${presTipo.toUpperCase()}</strong>
-            </div>
-
-            <br>
-
-            <div style="display: flex; justify-content: space-between;">
-                <span>GRADOS DIA BASE:</span>
-                <strong>${gradosDiaRaw}</strong>
-            </div>
-
-            <div style="display: flex; justify-content: space-between;">
-                <span>TEMPERATURA EXT.:</span>
-                <strong>${tempExt}</strong>
-            </div>
-
-            <p style="font-size: 9px; color: var(--text-muted); margin-top: 1px;">
-                Guía técnica de condiciones climáticas exteriores de proyecto
-            </p>
-
-            <div style="margin-top: 6px;">
                 <strong>
-                    Rfa. ${nombreCiudadRef.toUpperCase()}
+                    *${tubo.toUpperCase()}
                 </strong>
             </div>
 
             <br>
 
+            <div class="txt-red-highlight">
+                <strong>
+                    *${presTipo.toUpperCase()}
+                </strong>
+            </div>
+
+            <br>
+
+            <div
+                style="display: flex; justify-content: space-between;">
+                <span>
+                    GRADOS DIA BASE:
+                </span>
+
+                <strong>
+                    ${gradosDiaRaw}
+                </strong>
+            </div>
+
+            <div
+                style="display: flex; justify-content: space-between;">
+
+                <span>
+                    TEMPERATURA EXT.:
+                </span>
+
+                <strong>
+                    ${tempExt}
+                </strong>
+
+            </div>
+
+            <p
+                style="font-size: 9px; color: var(--text-muted); margin-top: 1px;">
+                Guía técnica de condiciones climáticas exteriores de proyecto
+            </p>
+
+            <div
+                style="margin-top: 6px;">
+
+                <strong>
+                    Rfa. ${nombreCiudadRef.toUpperCase()}
+                </strong>
+
+            </div>
+
+            <br>
+
             <div>
-                <strong>Técnica proyecto:</strong>
-                <span>${tecnico}</span>
+
+                <strong>
+                    Técnica proyecto:
+                </strong>
+
+                <span>
+                    ${tecnico}
+                </span>
+
             </div>
         `;
 
@@ -2726,7 +3876,10 @@
             );
 
         estanciasDOM.forEach(
-            (est, index) => {
+            (
+                est,
+                index
+            ) => {
 
                 const plantaVal =
                     est.querySelector(
@@ -2734,7 +3887,11 @@
                     ).value.trim() ||
                     'BAJA';
 
-                if (!mapPlantas.has(plantaVal)) {
+                if (
+                    !mapPlantas.has(
+                        plantaVal
+                    )
+                ) {
 
                     mapPlantas.set(
                         plantaVal,
@@ -2766,7 +3923,9 @@
                     );
 
                 mapPlantas
-                    .get(plantaVal)
+                    .get(
+                        plantaVal
+                    )
                     .push({
                         nombre,
                         m2,
@@ -2801,11 +3960,15 @@
         let isFirstTaller = true;
 
         for (
-            const [plantaName, estancias]
+            const [
+                plantaName,
+                estancias
+            ]
             of mapPlantas.entries()
         ) {
 
-            let htmlFilasTallerPlanta = '';
+            let htmlFilasTallerPlanta =
+                '';
 
             let tM2Planta = 0,
                 tWCalPlanta = 0,
@@ -2814,8 +3977,11 @@
                 tModPlanta = 0,
                 tCablePlanta = 0;
 
-            let foliosCountPlanta = 0;
-            let folioPlantaIndex = 1;
+            let foliosCountPlanta =
+                0;
+
+            let folioPlantaIndex =
+                1;
 
             estancias.forEach(
                 (
@@ -2840,11 +4006,15 @@
                             .toUpperCase()
                             .includes('BANO');
 
-                    totalM2 += m2;
-                    tM2Planta += m2;
+                    totalM2 +=
+                        m2;
+
+                    tM2Planta +=
+                        m2;
 
                     if (esBano) {
-                        totalM2Banos += m2;
+                        totalM2Banos +=
+                            m2;
                     }
 
                     let estWCol = 0,
@@ -2875,45 +4045,76 @@
                                 ) || 75;
 
                             const w =
-                                ml * tipo;
+                                ml *
+                                tipo;
 
-                            estWCol += w;
+                            estWCol +=
+                                w;
 
-                            tMLPlanta += ml;
-                            totalMLSum += ml;
+                            tMLPlanta +=
+                                ml;
 
-                            if (tipo === 75) {
+                            totalMLSum +=
+                                ml;
 
-                                estML75 += ml;
-                                totalML75 += ml;
-                                totalW75 += w;
+                            if (
+                                tipo ===
+                                75
+                            ) {
 
+                                estML75 +=
+                                    ml;
+
+                                totalML75 +=
+                                    ml;
+
+                                totalW75 +=
+                                    w;
                             }
 
-                            if (tipo === 116) {
+                            if (
+                                tipo ===
+                                116
+                            ) {
 
-                                estML116 += ml;
-                                totalML116 += ml;
-                                totalW116 += w;
+                                estML116 +=
+                                    ml;
 
+                                totalML116 +=
+                                    ml;
+
+                                totalW116 +=
+                                    w;
                             }
 
-                            if (tipo === 150) {
+                            if (
+                                tipo ===
+                                150
+                            ) {
 
-                                estML150 += ml;
-                                totalML150 += ml;
-                                totalW150 += w;
+                                estML150 +=
+                                    ml;
+
+                                totalML150 +=
+                                    ml;
+
+                                totalW150 +=
+                                    w;
                             }
                         }
                     );
 
-                    totalWCol += estWCol;
-                    tWColPlanta += estWCol;
+                    totalWCol +=
+                        estWCol;
+
+                    tWColPlanta +=
+                        estWCol;
 
                     const estWm2 =
                         m2 > 0
                             ? Math.round(
-                                estWCol / m2
+                                estWCol /
+                                m2
                             )
                             : 0;
 
@@ -2925,12 +4126,16 @@
                             ? 'sep-planta'
                             : '';
 
-                    let tdPlanta = '';
+                    let tdPlanta =
+                        '';
 
-                    if (eIndex === 0) {
+                    if (
+                        eIndex === 0
+                    ) {
 
                         tdPlanta = `
-                            <td rowspan="${estancias.length}"
+                            <td
+                                rowspan="${estancias.length}"
                                 style="font-weight: 800; font-size: 11px;">
                                 ${plantaName.toUpperCase()}
                             </td>
@@ -2943,7 +4148,8 @@
 
                             ${tdPlanta}
 
-                            <td style="text-align: left; font-weight: 700;">
+                            <td
+                                style="text-align: left; font-weight: 700;">
                                 ${nombre.toUpperCase()}
                             </td>
 
@@ -2952,9 +4158,11 @@
                             </td>
 
                             <td>
-                                ${esBano
-                                    ? formatearDecimal(m2)
-                                    : ''}
+                                ${
+                                    esBano
+                                        ? formatearDecimal(m2)
+                                        : ''
+                                }
                             </td>
 
                             <td>
@@ -2991,11 +4199,14 @@
                                 }
                             </td>
 
-                            <td style="font-weight: 800;">
+                            <td
+                                style="font-weight: 800;">
                                 ${formatearNumero(estWCol)}
                             </td>
 
-                            <td>1</td>
+                            <td>
+                                1
+                            </td>
 
                         </tr>
                     `;
@@ -3038,25 +4249,35 @@
                                     ml / 0.25
                                 );
 
-                            totalModulos += mod;
-                            tModPlanta += mod;
+                            totalModulos +=
+                                mod;
+
+                            tModPlanta +=
+                                mod;
 
                             if (
                                 wcalVal !== "" &&
                                 !isNaN(
-                                    parseFloat(wcalVal)
+                                    parseFloat(
+                                        wcalVal
+                                    )
                                 )
                             ) {
 
                                 totalWCalSum +=
-                                    parseFloat(wcalVal);
+                                    parseFloat(
+                                        wcalVal
+                                    );
 
                                 tWCalPlanta +=
-                                    parseFloat(wcalVal);
+                                    parseFloat(
+                                        wcalVal
+                                    );
                             }
 
                             if (
-                                cableVal !== ""
+                                cableVal !==
+                                ""
                             ) {
 
                                 const cableNum =
@@ -3073,7 +4294,9 @@
                                     );
 
                                 if (
-                                    !isNaN(cableNum)
+                                    !isNaN(
+                                        cableNum
+                                    )
                                 ) {
 
                                     totalCableSum +=
@@ -3092,14 +4315,22 @@
                                     ? 'sep-row'
                                     : '';
 
-                            let tdTuboTaller = '';
+                            let tdTuboTaller =
+                                '';
 
-                            if (fIndex === 0) {
+                            if (
+                                fIndex ===
+                                0
+                            ) {
 
-                                if (conTubo) {
+                                if (
+                                    conTubo
+                                ) {
 
                                     tdTuboTaller = `
-                                        <td rowspan="${numFoliosEst}"
+
+                                        <td
+                                            rowspan="${numFoliosEst}"
                                             style="color: var(--danger-red); font-weight: 900; background-color: #fef2f2;">
                                             CON TUBO
                                         </td>
@@ -3108,65 +4339,76 @@
                                 } else {
 
                                     tdTuboTaller = `
-                                        <td rowspan="${numFoliosEst}"></td>
+
+                                        <td
+                                            rowspan="${numFoliosEst}">
+                                        </td>
                                     `;
                                 }
                             }
 
                             htmlFilasTallerPlanta += `
 
-                                <tr class="${trClassTall}">
+                                <tr
+                                    class="${trClassTall}">
 
                                     ${
                                         fIndex === 0
                                             ? `
-                                                <td rowspan="${numFoliosEst}"
+                                                <td
+                                                    rowspan="${numFoliosEst}"
                                                     class="hueco-name">
                                                     ${nombre.toUpperCase()}
                                                 </td>
-                                              `
+                                            `
                                             : ''
                                     }
 
                                     ${
                                         fIndex === 0
                                             ? `
-                                                <td rowspan="${numFoliosEst}">
+                                                <td
+                                                    rowspan="${numFoliosEst}">
                                                     ${formatearDecimal(m2)}
                                                 </td>
-                                              `
+                                            `
                                             : ''
                                     }
 
                                     ${
                                         fIndex === 0
                                             ? `
-                                                <td rowspan="${numFoliosEst}">
+                                                <td
+                                                    rowspan="${numFoliosEst}">
                                                     ${formatearNumero(estWm2)}
                                                 </td>
-                                              `
+                                            `
                                             : ''
                                     }
 
                                     <td>
-                                        ${wcalVal !== ""
-                                            ? wcalVal
-                                            : ''}
+                                        ${
+                                            wcalVal !== ""
+                                                ? wcalVal
+                                                : ''
+                                        }
                                     </td>
 
                                     ${
                                         fIndex === 0
                                             ? `
-                                                <td rowspan="${numFoliosEst}">
+                                                <td
+                                                    rowspan="${numFoliosEst}">
                                                     <strong>
                                                         ${formatearNumero(estWCol)}
                                                     </strong>
                                                 </td>
-                                              `
+                                            `
                                             : ''
                                     }
 
-                                    <td class="txt-${tipo}">
+                                    <td
+                                        class="txt-${tipo}">
                                         ${tipo} W
                                     </td>
 
@@ -3212,21 +4454,28 @@
 
             htmlTallerCompleto += `
 
-                <div class="planta-taller-sheet"
-                     ${pageBreakStyle}>
+                <div
+                    class="planta-taller-sheet"
+                    ${pageBreakStyle}>
 
-                    <div class="print-header-brand">
+                    <div
+                        class="print-header-brand">
 
-                        <div class="cecather-logo-box">
+                        <div
+                            class="cecather-logo-box">
+
                             <span class="sub-black">
                                 GRUPO
                             </span>
+
                             <span class="main-yellow">
                                 CECATHER <sup>®</sup>
                             </span>
+
                         </div>
 
-                        <div style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">
+                        <div
+                            style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">
                             DOCUMENTACIÓN DE TALLER Y MONTAJE
                         </div>
 
@@ -3234,30 +4483,35 @@
 
                     <div class="table-responsive">
 
-                        <table class="taller-table"
-                               style="margin-bottom: 20px;">
+                        <table
+                            class="taller-table"
+                            style="margin-bottom: 20px;">
 
                             <thead>
 
                                 <tr>
 
-                                    <td colspan="4"
+                                    <td
+                                        colspan="4"
                                         class="header-info">
                                         ${titulo.toUpperCase()}
                                     </td>
 
-                                    <td colspan="3"
+                                    <td
+                                        colspan="3"
                                         class="header-info">
                                         Ref: ${ref}
                                     </td>
 
-                                    <td colspan="2"
+                                    <td
+                                        colspan="2"
                                         class="header-info">
                                         PLANTA:
                                         ${plantaName.toUpperCase()}
                                     </td>
 
-                                    <td colspan="1"
+                                    <td
+                                        colspan="1"
                                         class="header-info"
                                         style="text-align: center;">
                                         ${tubo.toUpperCase()}
@@ -3267,43 +4521,53 @@
 
                                 <tr>
 
-                                    <th style="width: 16%;">
+                                    <th
+                                        style="width: 16%;">
                                         Hueco
                                     </th>
 
-                                    <th style="width: 7%;">
+                                    <th
+                                        style="width: 7%;">
                                         M²
                                     </th>
 
-                                    <th style="width: 7%;">
+                                    <th
+                                        style="width: 7%;">
                                         W/M²
                                     </th>
 
-                                    <th style="width: 8%;">
+                                    <th
+                                        style="width: 8%;">
                                         W. CAL.
                                     </th>
 
-                                    <th style="width: 8%;">
+                                    <th
+                                        style="width: 8%;">
                                         W. COL.
                                     </th>
 
-                                    <th style="width: 8%;">
+                                    <th
+                                        style="width: 8%;">
                                         W/ML
                                     </th>
 
-                                    <th style="width: 7%;">
+                                    <th
+                                        style="width: 7%;">
                                         Nº FOLIO
                                     </th>
 
-                                    <th style="width: 12%;">
+                                    <th
+                                        style="width: 12%;">
                                         LONG / MOD
                                     </th>
 
-                                    <th style="width: 10%;">
+                                    <th
+                                        style="width: 10%;">
                                         CABLE
                                     </th>
 
-                                    <th style="width: 17%;">
+                                    <th
+                                        style="width: 17%;">
                                         OBSERVACIONES
                                     </th>
 
@@ -3315,7 +4579,8 @@
 
                                 ${htmlFilasTallerPlanta}
 
-                                <tr class="totals-row">
+                                <tr
+                                    class="totals-row">
 
                                     <td>
                                         TOTAL
@@ -3342,20 +4607,24 @@
                                         ${formatearNumero(tWColPlanta)}
                                     </td>
 
-                                    <td style="font-weight:900; color:var(--danger-red);">
+                                    <td
+                                        style="font-weight:900; color:var(--danger-red);">
                                         ${formatearNumero(densMediaPlanta)}
                                     </td>
 
-                                    <td style="font-weight:900;">
+                                    <td
+                                        style="font-weight:900;">
                                         ${foliosCountPlanta}
                                     </td>
 
-                                    <td style="font-weight:900;">
+                                    <td
+                                        style="font-weight:900;">
                                         ${formatearDecimal(tMLPlanta)}m
                                         (${tModPlanta})
                                     </td>
 
-                                    <td style="font-weight:900;">
+                                    <td
+                                        style="font-weight:900;">
                                         ${
                                             tCablePlanta > 0
                                                 ? tCablePlanta + 'M'
@@ -3376,8 +4645,11 @@
                 </div>
             `;
 
-            isFirstGroup = false;
-            isFirstTaller = false;
+            isFirstGroup =
+                false;
+
+            isFirstTaller =
+                false;
         }
 
         document.getElementById(
@@ -3388,15 +4660,18 @@
         const densMediaGlobal =
             totalM2 > 0
                 ? Math.round(
-                    totalWCol / totalM2
+                    totalWCol /
+                    totalM2
                 )
                 : 0;
 
         htmlResumen += `
 
-            <tr class="total-excel-row">
+            <tr
+                class="total-excel-row">
 
-                <td colspan="2"
+                <td
+                    colspan="2"
                     style="text-align: left;">
                     TOTALES
                 </td>
@@ -3416,7 +4691,9 @@
                 <td class="txt-75">
                     ${
                         totalW75 > 0
-                            ? formatearNumero(totalW75)
+                            ? formatearNumero(
+                                totalW75
+                            )
                             : ''
                     }
                 </td>
@@ -3424,7 +4701,9 @@
                 <td class="txt-116">
                     ${
                         totalW116 > 0
-                            ? formatearNumero(totalW116)
+                            ? formatearNumero(
+                                totalW116
+                            )
                             : ''
                     }
                 </td>
@@ -3432,7 +4711,9 @@
                 <td class="txt-150">
                     ${
                         totalW150 > 0
-                            ? formatearNumero(totalW150)
+                            ? formatearNumero(
+                                totalW150
+                            )
                             : ''
                     }
                 </td>
@@ -3530,7 +4811,8 @@
 
         const plasticoCub =
             Math.round(
-                totalM2 * 1.3
+                totalM2 *
+                1.3
             );
 
         document.getElementById(
@@ -3541,7 +4823,8 @@
             );
 
         const totalFoliosCountGlobal =
-            globalFolioNumTotal - 1;
+            globalFolioNumTotal -
+            1;
 
         document.getElementById(
             'res-udes-folio'
@@ -3553,7 +4836,10 @@
                 'row-res-plastico-burb'
             );
 
-        if (usarBurbuja === 'si') {
+        if (
+            usarBurbuja ===
+            'si'
+        ) {
 
             rowBurbuja.style.display =
                 'table-row';
@@ -3564,7 +4850,8 @@
                         totalML75 +
                         totalML116 +
                         totalML150
-                    ) * 1.1
+                    ) *
+                    1.1
                 );
 
             document.getElementById(
@@ -3586,7 +4873,8 @@
                     totalCableSum +
                     (2 * totalMLSum) +
                     (1.2 * totalFoliosCountGlobal)
-                ) / 50
+                ) /
+                50
             );
 
         document.getElementById(
@@ -3611,7 +4899,9 @@
             totalML150 > 0
         );
 
-        if (datosEstudioInicial) {
+        if (
+            datosEstudioInicial
+        ) {
 
             const oldT =
                 calcularTotalesProyectoSilencioso(
@@ -3653,20 +4943,24 @@
 
             const htmlComp = `
 
-                <table class="comparativa-table">
+                <table
+                    class="comparativa-table">
 
                     <thead>
 
                         <tr>
 
-                            <th style="width:20%; border:none; background:transparent;">
+                            <th
+                                style="width:20%; border:none; background:transparent;">
                             </th>
 
-                            <th style="text-align:right;">
+                            <th
+                                style="text-align:right;">
                                 ESTUDIO INICIAL
                             </th>
 
-                            <th style="text-align:right; color:var(--danger-red);">
+                            <th
+                                style="text-align:right; color:var(--danger-red);">
                                 REVISIÓN ${curT.fecha}
                             </th>
 
@@ -3678,15 +4972,18 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 M2
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${formatearDecimal(oldT.totalM2)}
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${formatearDecimal(curT.totalM2)}
                             </td>
 
@@ -3694,15 +4991,18 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 W/M2
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${oldT.densMedia}
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${curT.densMedia}
                             </td>
 
@@ -3710,15 +5010,18 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 W
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${formatearNumero(oldT.totalWCol)}
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${formatearNumero(curT.totalWCol)}
                             </td>
 
@@ -3726,37 +5029,46 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 M.L FOLIO
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
 
-                                <span class="txt-75">
+                                <span
+                                    class="txt-75">
                                     75=${formatearDecimal(oldT.ml75)}
                                 </span>
 
-                                <span class="txt-116">
+                                <span
+                                    class="txt-116">
                                     116=${formatearDecimal(oldT.ml116)}
                                 </span>
 
-                                <span class="txt-150">
+                                <span
+                                    class="txt-150">
                                     150=${formatearDecimal(oldT.ml150)}
                                 </span>
 
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
 
-                                <span class="txt-75">
+                                <span
+                                    class="txt-75">
                                     75=${formatearDecimal(curT.ml75)}
                                 </span>
 
-                                <span class="txt-116">
+                                <span
+                                    class="txt-116">
                                     116=${formatearDecimal(curT.ml116)}
                                 </span>
 
-                                <span class="txt-150">
+                                <span
+                                    class="txt-150">
                                     150=${formatearDecimal(curT.ml150)}
                                 </span>
 
@@ -3766,15 +5078,18 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 Total M.L FOLIO
                             </td>
 
-                            <td style="text-align:right; color:var(--color-green); font-weight:800;">
+                            <td
+                                style="text-align:right; color:var(--color-green); font-weight:800;">
                                 ${formatearDecimal(oldT.totalML)}
                             </td>
 
-                            <td style="text-align:right; color:var(--color-green); font-weight:800;">
+                            <td
+                                style="text-align:right; color:var(--color-green); font-weight:800;">
                                 ${formatearDecimal(curT.totalML)}
                             </td>
 
@@ -3782,15 +5097,18 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 Und. FOLIO
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${oldT.udFolio}
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${curT.udFolio}
                             </td>
 
@@ -3798,15 +5116,18 @@
 
                         <tr>
 
-                            <td style="font-weight: 700; background: #f8fafc;">
+                            <td
+                                style="font-weight: 700; background: #f8fafc;">
                                 Und. CRONOS
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${oldT.cronos}
                             </td>
 
-                            <td style="text-align:right;">
+                            <td
+                                style="text-align:right;">
                                 ${curT.cronos}
                             </td>
 
@@ -3828,7 +5149,8 @@
                 'comparativa-container'
             ).innerHTML = `
 
-                <p style="text-align:center; padding: 20px; color: var(--text-muted); font-weight: 600;">
+                <p
+                    style="text-align:center; padding: 20px; color: var(--text-muted); font-weight: 600;">
                     Carga un archivo de proyecto (.json) anterior para ver la comparativa con los datos actuales.
                 </p>
             `;
@@ -3849,6 +5171,10 @@
                 rowIdMl
             );
 
+        if (!rowMl) {
+            return;
+        }
+
         if (activo) {
 
             rowMl.classList.add(
@@ -3863,10 +5189,20 @@
         }
     }
 
-    if ('launchQueue' in window) {
+    /*
+     * =====================================================
+     * APERTURA DE ARCHIVOS DESDE EL SISTEMA
+     * =====================================================
+     */
+
+    if (
+        'launchQueue' in window
+    ) {
 
         window.launchQueue.setConsumer(
-            async (launchParams) => {
+            async (
+                launchParams
+            ) => {
 
                 if (
                     launchParams.files &&
@@ -3878,27 +5214,42 @@
                         of launchParams.files
                     ) {
 
-                        const file =
-                            await fileHandle.getFile();
+                        try {
 
-                        const dataTransfer =
-                            new DataTransfer();
+                            const file =
+                                await fileHandle.getFile();
 
-                        dataTransfer.items.add(
-                            file
-                        );
+                            const dataTransfer =
+                                new DataTransfer();
 
-                        const event = {
+                            dataTransfer.items.add(
+                                file
+                            );
 
-                            target: {
-                                files:
-                                    dataTransfer.files
-                            }
-                        };
+                            const event = {
 
-                        importarProyectoArchivo(
-                            event
-                        );
+                                target: {
+                                    files:
+                                        dataTransfer.files
+                                }
+                            };
+
+                            importarProyectoArchivo(
+                                event
+                            );
+
+                        } catch (err) {
+
+                            console.error(
+                                "Error abriendo archivo desde launchQueue:",
+                                err
+                            );
+
+                            alert(
+                                "No se pudo abrir el proyecto:\n\n" +
+                                err.message
+                            );
+                        }
                     }
                 }
             }
