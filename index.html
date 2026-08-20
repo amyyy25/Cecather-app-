@@ -650,7 +650,6 @@
         <button class="tab-button active" onclick="switchTab('tab-taller')">📋 HOJA DE TALLER (MONTAJE)</button>
         <button class="tab-button" onclick="switchTab('tab-resumen')">📊 HOJA DE RESUMEN (ESTUDIO)</button>
         <button class="tab-button" onclick="switchTab('tab-comparativa')">🔄 COMPARATIVA REVISIÓN</button>
-        <button class="tab-button" onclick="switchTab('tab-materiales')">📋 HOJA DE MATERIALES</button>
     </div>
 
     <div id="tab-taller" class="tab-content card active">
@@ -1778,7 +1777,6 @@
         actualizarResaltadoRojo('row-res-ml-75', totalML75 > 0);
         actualizarResaltadoRojo('row-res-ml-116', totalML116 > 0);
         actualizarResaltadoRojo('row-res-ml-150', totalML150 > 0);
-        actualizarHojaMateriales();
         
         if (datosEstudioInicial) {
             const oldT = calcularTotalesProyectoSilencioso(datosEstudioInicial);
@@ -1852,64 +1850,6 @@
         verificarAclaracion();
         guardarEstadoLocal();
     }
-
-
-    function actualizarHojaMateriales() {
-        const data = obtenerDatosObjetoProyecto();
-        document.getElementById('mat-ref').innerText = data.referencia;
-        document.getElementById('mat-cliente').innerText = data.solicitante;
-        document.getElementById('mat-tel').innerText = data.telefono;
-        document.getElementById('mat-email').innerText = data.email;
-        document.getElementById('mat-descripcion').innerText = `Suministro – ESTUDIO ${data.titulo} ${data.referencia}`;
-
-        const lista = document.getElementById('lista-materiales');
-        lista.innerHTML = '';
-        
-        // Obtenemos los totales para la lista
-        const t = calcularTotalesProyectoSilencioso(data);
-        const plasticoCub = Math.round(t.totalM2 * 1.3);
-        const plasticoBurb = data.usarBurbuja === 'si' ? Math.round(t.totalML * 1.1) : 0;
-        const rollosCinta = Math.ceil(( (t.ml75 * 0.1) + (t.ml116 * 0.1) + (t.ml150 * 0.1) + (2 * t.totalML) + (1.2 * t.udFolio)) / 50);
-
-        const materiales = [
-            ` ${t.udFolio} Folios (Total ${t.totalML.toFixed(2)} ML).`,
-            ` ${t.cronos} Cronotermostatos`,
-            ` ${t.totalM2.toFixed(2)} m² Aislamiento 5 mm XPS (Verde reflexivo)`,
-            ` ${plasticoCub} M.L. de Plástico de Cubrición`,
-            ` ${plasticoBurb} M.L. de Plástico de Burbuja`,
-            ` ${rollosCinta} Rollos cinta gris de instalación`,
-            ` Manual instrucciones Sistema Acumulación`,
-            ` Manual instrucciones Crono TUYA`,
-            ` Manual instalación Crono`
-        ];
-        
-        materiales.forEach(m => {
-            lista.innerHTML += `<li>☐ ${m}</li>`;
-        });
-    }
-
-    function exportarMaterialesPDF() {
-        // Ocultamos todo menos el div de impresión
-        const original = document.body.innerHTML;
-        document.body.innerHTML = document.getElementById('hoja-materiales-print').outerHTML;
-        window.print();
-        document.body.innerHTML = original;
-        location.reload(); 
-    }
-
-    function exportarMaterialesWord() {
-        const contenido = document.getElementById('hoja-materiales-print').innerHTML;
-        const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export Word</title></head><body>`;
-        const footer = `</body></html>`;
-        const sourceHTML = header + contenido + footer;
-        const blob = new Blob(['﻿', sourceHTML], { type: 'application/msword' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Hoja_Materiales_' + document.getElementById('mat-ref').innerText + '.doc';
-        a.click();
-    }
-
 
     function actualizarResaltadoRojo(rowIdMl, activo) {
         const rowMl = document.getElementById(rowIdMl);
