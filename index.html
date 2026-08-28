@@ -41,6 +41,7 @@
         input, select { width: 100%; padding: 8px 10px; border: 1px solid var(--border-color); background-color: #FAFAFA; border-radius: 6px; font-size: 12.5px; color: var(--text-dark); font-weight: 500; transition: all 0.2s ease; }
         input:focus, select:focus { outline: none; border-color: var(--black-main); background-color: var(--white-pure); box-shadow: 0 0 0 3px rgba(238, 182, 49, 0.3); }
         .estancia-box { background-color: var(--bg-cream); border: 1px solid rgba(0,0,0,0.06); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        .orientativa-estancia-box { background-color: #F8FAFC; border: 1px dashed var(--yellow-brand); border-radius: 10px; padding: 14px; margin-bottom: 12px; }
         .live-stats { display: flex; gap: 12px; background: #FFFFFF; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 10px; align-items: center; }
         .stat-badge { font-size: 11px; font-weight: 600; color: var(--text-muted); }
         .stat-badge strong { font-size: 14px; color: var(--black-main); }
@@ -93,7 +94,6 @@
         .comparativa-table th { border: 1px solid #000000; padding: 8px; background-color: #f1f5f9; }
         .comparativa-table td { border: 1px solid #000000; padding: 6px; }
 
-        /* Estilos específicos para hojas A4 verticales a escala completa y limpias */
         .a4-sheet-container {
             background: #FFFFFF !important;
             padding: 0 !important;
@@ -117,7 +117,6 @@
             justify-content: space-between;
         }
 
-        /* Estilo para campos editables blancos con borde sutil al pasar el ratón */
         .editable-white {
             background: #FFFFFF !important;
             border-bottom: 1px dashed #cbd5e1 !important;
@@ -139,13 +138,11 @@
             .tab-content.active { display: block !important; width: 100%; }
             .taller-table .header-info, .resumen-table .header-row-excel td, .resumen-table tr.total-excel-row td { background-color: var(--yellow-brand) !important; }
             
-            /* CLAVE: "size: auto" habilita el selector Horizontal/Vertical en el navegador */
             @page { size: auto; margin: 5mm; } 
             
             .resumen-bottom-grid { margin-top: 8px; page-break-inside: avoid; }
             .fila-aclaracion.ocultar-impresion { display: none !important; }
             
-            /* Ajustes para escalar el contenido en cualquier orientación de página */
             .a4-sheet-container, .a4-page-content { 
                 border: none !important; 
                 padding: 10mm !important; 
@@ -261,8 +258,20 @@
         </div>
     </div>
 
+    <!-- NUEVO APARTADO: ESTUDIO ORIENTATIVO -->
+    <div class="card no-print" style="border: 2px solid var(--yellow-brand);">
+        <div class="card-title" style="color: var(--black-main);">⚡ Nuevo Apartado: Estudio Orientativo (Simplificado)</div>
+        <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 12px;">
+            Versión simplificada del estudio definitivo sin plano ni distribución gráfica. Introduce estancias, superficie, densidad y tipo de folio para calcular automáticamente la potencia, m² reales y metros lineales (módulos de 0,25 m).
+        </p>
+        <div id="estancias-orientativo-container"></div>
+        <div style="display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="agregarEstanciaOrientativa(); guardarEstadoLocal();">+ Añadir Estancia (Orientativo)</button>
+        </div>
+    </div>
+
     <div class="card no-print">
-        <div class="card-title">2. Estancias y Configuración de Folios</div>
+        <div class="card-title">2. Estancias y Configuración de Folios (Definitivo)</div>
         <div id="estancias-container"></div>
         <div style="display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;">
             <button class="btn btn-outline" onclick="agregarEstancia(); guardarEstadoLocal();">+ Añadir Nueva Estancia</button>
@@ -288,16 +297,12 @@
 
     <div id="tab-taller" class="tab-content card active"></div>
     
-    <!-- APARTADO: LISTA DE TALLERES (A ESCALA A4 Y LIMPIO) -->
     <div id="tab-lista-talleres" class="tab-content card a4-sheet-container">
         <div class="a4-page-content">
-            <div id="documento-lista-talleres" style="font-family: 'Segoe UI', Arial, sans-serif; color: black; width: 100%;">
-                <!-- Contenido generado dinámicamente -->
-            </div>
+            <div id="documento-lista-talleres" style="font-family: 'Segoe UI', Arial, sans-serif; color: black; width: 100%;"></div>
         </div>
     </div>
 
-    <!-- APARTADO: ETIQUETA DE ENVÍO EDITABLE (A ESCALA A4 Y CUADROS BLANCOS) -->
     <div id="tab-etiqueta-envio" class="tab-content card a4-sheet-container">
         <div class="a4-page-content">
             <div id="documento-etiqueta-envio" style="font-family: 'Segoe UI', Arial, sans-serif; color: black; width: 100%; position: relative;">
@@ -479,6 +484,7 @@
     ];
 
     let estanciaCount = 0;
+    let estanciaOrientativaCount = 0;
     let datosEstudioInicial = null;
 
     window.onload = function() { pueblarSelectCiudades(); cargarEstadoLocal(); generarTodo(); verificarAclaracion(); };
@@ -525,8 +531,9 @@
             telefono: document.getElementById('telefono').value, email: document.getElementById('email').value, fecha: document.getElementById('fecha').value,
             tecnico: document.getElementById('tecnico').value, colaborador: document.getElementById('colaborador').value,
             tipoPresupuesto: document.getElementById('tipo-presupuesto').value, usarBurbuja: document.getElementById('usar-burbuja').value,
-            aclaracionTexto: document.getElementById('val-aclaracion').innerText, estancias: []
+            aclaracionTexto: document.getElementById('val-aclaracion').innerText, estancias: [], estanciasOrientativas: []
         };
+        
         const estanciasDOM = document.querySelectorAll('.estancia-box');
         estanciasDOM.forEach(est => {
             const planta = est.querySelector('.est-planta').value, nombre = est.querySelector('.est-nombre').value,
@@ -541,6 +548,16 @@
             });
             proyectoData.estancias.push({ planta, nombre, m2, conTubo, folios: foliosArr });
         });
+
+        const estOrientativasDOM = document.querySelectorAll('.orientativa-estancia-box');
+        estOrientativasDOM.forEach(est => {
+            const nombre = est.querySelector('.or-nombre').value;
+            const m2 = est.querySelector('.or-m2').value;
+            const densidad = est.querySelector('.or-densidad').value;
+            const tipoFolio = est.querySelector('.or-tipo-folio').value;
+            proyectoData.estanciasOrientativas.push({ nombre, m2, densidad, tipoFolio });
+        });
+
         return proyectoData;
     }
 
@@ -560,10 +577,17 @@
         document.getElementById('fecha').value = data.fecha ?? ''; document.getElementById('tecnico').value = data.tecnico ?? ''; document.getElementById('colaborador').value = data.colaborador || 'estandar';
         document.getElementById('tipo-presupuesto').value = data.tipoPresupuesto || 'PRESUPUESTO SUMINISTRO Y LLAVE EN MANO'; document.getElementById('usar-burbuja').value = data.usarBurbuja || 'si';
         document.getElementById('val-aclaracion').innerText = data.aclaracionTexto || "Hacer clic para escribir aclaración...";
+        
         const contenedor = document.getElementById('estancias-container'); contenedor.innerHTML = ''; estanciaCount = 0;
         if (Array.isArray(data.estancias) && data.estancias.length > 0) {
             data.estancias.forEach(e => { agregarEstanciaConDatos(e.planta ?? 'BAJA', e.nombre ?? '', e.m2 ?? '', e.conTubo === true, Array.isArray(e.folios) ? e.folios : []); });
         } else { agregarEstanciaConDatos("BAJA", "", "", false, []); }
+
+        const contenedorOr = document.getElementById('estancias-orientativo-container'); contenedorOr.innerHTML = ''; estanciaOrientativaCount = 0;
+        if (Array.isArray(data.estanciasOrientativas) && data.estanciasOrientativas.length > 0) {
+            data.estanciasOrientativas.forEach(e => { agregarEstanciaOrientativaConDatos(e.nombre ?? '', e.m2 ?? '', e.densidad ?? '100', e.tipoFolio ?? '75'); });
+        }
+
         verificarAclaracion();
     }
 
@@ -581,6 +605,7 @@
         if (confirm("¿Deseas limpiar todo para dejarlo como plantilla vacía?")) {
             ['titulo','referencia','tubo','solicitante','telefono','email'].forEach(id => document.getElementById(id).value = "");
             document.getElementById('estancias-container').innerHTML = ''; estanciaCount = 0;
+            document.getElementById('estancias-orientativo-container').innerHTML = ''; estanciaOrientativaCount = 0;
             document.getElementById('val-aclaracion').innerText = "Hacer clic para escribir aclaración...";
             agregarEstanciaConDatos("BAJA", "", "", false, []); verificarAclaracion(); guardarEstadoLocal(); generarTodo();
         }
@@ -620,6 +645,7 @@
     function resetearDatosLocalStorage() {
         if (confirm("¿Seguro que deseas restablecer los datos originales de fábrica?")) {
             localStorage.removeItem('cecather_proyecto_data'); document.getElementById('estancias-container').innerHTML = ''; estanciaCount = 0;
+            document.getElementById('estancias-orientativo-container').innerHTML = ''; estanciaOrientativaCount = 0;
             document.getElementById('titulo').value = "VIVIENDA UNIFAMILIAR"; document.getElementById('referencia').value = "25F-78950 (REVISIÓN 15.06.26)";
             document.getElementById('tubo').value = "INSTALACIÓN DIRECTA - SIN TUBO"; document.getElementById('select-ciudad').value = "BARCELONA|BARCELONA"; actualizarClimaCiudad();
             document.getElementById('pavimento').value = "PAVIMENTO TARIMA"; document.getElementById('solicitante').value = "CLIENTE EJEMPLO";
@@ -643,7 +669,8 @@
 
     function calcularTotalesProyectoSilencioso(data) {
         let totalM2 = 0, totalWCol = 0, ml75 = 0, ml116 = 0, ml150 = 0, totalML = 0, udFolio = 0;
-        const cronos = data.estancias ? data.estancias.length : 0;
+        let cronos = (data.estancias ? data.estancias.length : 0) + (data.estanciasOrientativas ? data.estanciasOrientativas.length : 0);
+        
         if (data.estancias) {
             data.estancias.forEach(est => {
                 totalM2 += parseFloat(est.m2) || 0;
@@ -656,6 +683,28 @@
                 }
             });
         }
+
+        if (data.estanciasOrientativas) {
+            data.estanciasOrientativas.forEach(est => {
+                const m2 = parseFloat(est.m2) || 0;
+                const dens = parseFloat(est.densidad) || 100;
+                const tipoFolio = parseInt(est.tipoFolio) || 75;
+                const potenciaNec = m2 * dens;
+                const mlTeorico = potenciaNec / tipoFolio;
+                const modulos = Math.round(mlTeorico / 0.25);
+                const mlReal = modulos * 0.25;
+                const potenciaReal = mlReal * tipoFolio;
+
+                totalM2 += m2;
+                totalWCol += potenciaReal;
+                totalML += mlReal;
+                udFolio += 1;
+                if (tipoFolio === 75) ml75 += mlReal;
+                if (tipoFolio === 116) ml116 += mlReal;
+                if (tipoFolio === 150) ml150 += mlReal;
+            });
+        }
+
         const densMedia = totalM2 > 0 ? Math.round(totalWCol / totalM2) : 0;
         return { totalM2, densMedia, totalWCol, ml75, ml116, ml150, totalML, udFolio, cronos, fecha: data.fecha || '-' };
     }
@@ -697,8 +746,58 @@
         if (Array.isArray(foliosArr) && foliosArr.length > 0) { foliosArr.forEach(f => { agregarFolio(id, f.ml ?? "", f.tipo ?? 75, f.wcal ?? "", f.cable ?? "", false); }); } else { agregarFolio(id, "", 75, "", "", false); }
     }
 
+    function agregarEstanciaOrientativa() {
+        agregarEstanciaOrientativaConDatos("", "", "100", "75");
+        guardarEstadoLocal();
+    }
+
+    function agregarEstanciaOrientativaConDatos(nombreVal, m2Val, densidadVal, tipoFolioVal) {
+        estanciaOrientativaCount++;
+        const id = estanciaOrientativaCount;
+        const div = document.createElement('div');
+        div.className = 'orientativa-estancia-box';
+        div.id = `orientativa-${id}`;
+        div.innerHTML = `
+            <div style="display: grid; grid-template-columns: 1.5fr 100px 110px 140px auto; gap: 10px; align-items: end;">
+                <div class="form-group"><label>Estancia</label><input type="text" class="or-nombre" placeholder="Ej. SALÓN ORIENTATIVO" value="${nombreVal}" oninput="guardarEstadoLocal();"></div>
+                <div class="form-group"><label>m² a calefactar</label><input type="number" step="0.01" class="or-m2" placeholder="0.00" value="${m2Val}" oninput="calcularEstanciaOrientativa(${id}); guardarEstadoLocal();"></div>
+                <div class="form-group"><label>Densidad (W/m²)</label><input type="number" class="or-densidad" placeholder="100" value="${densidadVal}" oninput="calcularEstanciaOrientativa(${id}); guardarEstadoLocal();"></div>
+                <div class="form-group"><label>Tipo de Folio</label><select class="or-tipo-folio" onchange="calcularEstanciaOrientativa(${id}); guardarEstadoLocal();"><option value="75" ${tipoFolioVal == 75 ? 'selected' : ''}>75 W</option><option value="116" ${tipoFolioVal == 116 ? 'selected' : ''}>116 W</option><option value="150" ${tipoFolioVal == 150 ? 'selected' : ''}>150 W</option></select></div>
+                <button class="btn btn-danger" onclick="document.getElementById('orientativa-${id}').remove(); guardarEstadoLocal(); generarTodo();">✕</button>
+            </div>
+            <div class="live-stats" style="margin-top: 10px; margin-bottom: 0;">
+                <div class="stat-badge">Potencia necesaria: <strong id="or-pot-${id}">0</strong> W</div>
+                <div style="color: #CBD5E1;">|</div>
+                <div class="stat-badge">Nº folios / m.l.: <strong id="or-ml-${id}">0,00</strong> m (Módulos de 0,25m)</div>
+                <div style="color: #CBD5E1;">|</div>
+                <div class="stat-badge">m² reales cubiertos: <strong id="or-m2real-${id}">0,00</strong> m²</div>
+            </div>
+        `;
+        document.getElementById('estancias-orientativo-container').appendChild(div);
+        calcularEstanciaOrientativa(id);
+    }
+
+    function calcularEstanciaOrientativa(id) {
+        const est = document.getElementById(`orientativa-${id}`);
+        if (!est) return;
+        const m2 = parseFloat(est.querySelector('.or-m2').value) || 0;
+        const densidad = parseFloat(est.querySelector('.or-densidad').value) || 0;
+        const tipoFolio = parseInt(est.querySelector('.or-tipo-folio').value) || 75;
+
+        const potenciaNec = m2 * densidad;
+        const mlTeorico = tipoFolio > 0 ? potenciaNec / tipoFolio : 0;
+        const modulos = Math.round(mlTeorico / 0.25);
+        const mlReal = modulos * 0.25;
+        const potenciaReal = mlReal * tipoFolio;
+        const m2Reales = mlReal * 0.5;
+
+        est.querySelector(`#or-pot-${id}`).innerText = formatearNumero(potenciaReal);
+        est.querySelector(`#or-ml-${id}`).innerText = `${formatearDecimal(mlReal)} (${modulos} mód.)`;
+        est.querySelector(`#or-m2real-${id}`).innerText = formatearDecimal(m2Reales);
+    }
+
     function eliminarEstancia(id) {
-        if (document.querySelectorAll('.estancia-box').length > 1) { document.getElementById(`estancia-${id}`).remove(); reordenarTodosLosFolios(); guardarEstadoLocal(); } else { alert("Debe haber al menos un hueco en el proyecto."); }
+        if (document.querySelectorAll('.estancia-box').length > 1 || document.querySelectorAll('.orientativa-estancia-box').length > 0) { document.getElementById(`estancia-${id}`).remove(); reordenarTodosLosFolios(); guardarEstadoLocal(); } else { alert("Debe haber al menos un hueco en el proyecto."); }
     }
 
     function agregarFolio(estanciaId, mlVal = "", tipoVal = 75, wcalVal = "", cableVal = "", guardar = true) {
@@ -749,7 +848,6 @@
 
         const mapPlantas = new Map();
         const estanciasDOM = document.querySelectorAll('.estancia-box');
-        
         let agrupacionFolios = {};
         let hayTuboEnProyecto = false;
 
@@ -764,6 +862,32 @@
                 conTubo: conTuboVal, foliosDOM: est.querySelectorAll('.folio-row')
             });
         });
+
+        const estanciasOrientativasDOM = document.querySelectorAll('.orientativa-estancia-box');
+        if (estanciasOrientativasDOM.length > 0) {
+            const plantaOrName = "ESTUDIO ORIENTATIVO";
+            if (!mapPlantas.has(plantaOrName)) mapPlantas.set(plantaOrName, []);
+            
+            estanciasOrientativasDOM.forEach((est, index) => {
+                const nombre = est.querySelector('.or-nombre').value.trim() || `HUECO ORIENTATIVO ${index + 1}`;
+                const m2 = parseFloat(est.querySelector('.or-m2').value) || 0;
+                const densidad = parseFloat(est.querySelector('.or-densidad').value) || 100;
+                const tipoFolio = parseInt(est.querySelector('.or-tipo-folio').value) || 75;
+
+                const potenciaNec = m2 * densidad;
+                const mlTeorico = potenciaNec / tipoFolio;
+                const modulos = Math.round(mlTeorico / 0.25);
+                const mlReal = modulos * 0.25;
+
+                mapPlantas.get(plantaOrName).push({
+                    nombre: nombre,
+                    m2: m2,
+                    conTubo: false,
+                    isOrientativo: true,
+                    foliosDataSimulada: [{ ml: mlReal, tipo: tipoFolio }]
+                });
+            });
+        }
 
         let totalM2 = 0, totalM2Banos = 0, totalWCol = 0, totalWCalSum = 0, totalCableSum = 0;
         let globalFolioNumTotal = 1, totalModulos = 0, totalMLSum = 0;
@@ -780,10 +904,21 @@
                 const esBano = nombre.toUpperCase().includes('BAÑO') || nombre.toUpperCase().includes('BANO');
                 totalM2 += m2; tM2Planta += m2; if (esBano) totalM2Banos += m2;
                 let estWCol = 0, estML75 = 0, estML116 = 0, estML150 = 0;
-                const foliosDOMList = Array.from(estData.foliosDOM);
+                
+                let foliosListToCheck = [];
+                if (estData.isOrientativo) {
+                    foliosListToCheck = estData.foliosDataSimulada;
+                } else {
+                    foliosListToCheck = Array.from(estData.foliosDOM).map(fol => ({
+                        ml: parseFloat(fol.querySelector('.fol-ml').value) || 0,
+                        tipo: parseInt(fol.querySelector('.fol-tipo').value) || 75,
+                        wcal: fol.querySelector('.fol-wcal').value,
+                        cable: fol.querySelector('.fol-cable').value
+                    }));
+                }
 
-                foliosDOMList.forEach(fol => {
-                    const ml = parseFloat(fol.querySelector('.fol-ml').value) || 0, tipo = parseInt(fol.querySelector('.fol-tipo').value) || 75, w = ml * tipo;
+                foliosListToCheck.forEach(fol => {
+                    const ml = fol.ml, tipo = fol.tipo, w = ml * tipo;
                     estWCol += w; tMLPlanta += ml; totalMLSum += ml;
                     if (tipo === 75) { estML75 += ml; totalML75 += ml; totalW75 += w; }
                     if (tipo === 116) { estML116 += ml; totalML116 += ml; totalW116 += w; }
@@ -802,10 +937,10 @@
                 let tdPlanta = eIndex === 0 ? `<td rowspan="${estancias.length}" style="font-weight: 800; font-size: 11px;">${plantaName.toUpperCase()}</td>` : '';
                 htmlResumen += `<tr class="${(eIndex === 0 && !isFirstGroup) ? 'sep-planta' : ''}">${tdPlanta}<td style="text-align: left; font-weight: 700;">${nombre.toUpperCase()}</td><td>${formatearDecimal(m2)}</td><td>${esBano ? formatearDecimal(m2) : ''}</td><td>${formatearNumero(estWm2)}</td><td class="txt-75">${estML75 > 0 ? formatearNumero(estML75 * 75) : ''}</td><td class="txt-116">${estML116 > 0 ? formatearNumero(estML116 * 116) : ''}</td><td class="txt-150">${estML150 > 0 ? formatearNumero(estML150 * 150) : ''}</td><td style="font-weight: 800;">${formatearNumero(estWCol)}</td><td>1</td></tr>`;
 
-                const numFoliosEst = foliosDOMList.length;
-                foliosDOMList.forEach((fol, fIndex) => {
-                    const ml = parseFloat(fol.querySelector('.fol-ml').value) || 0, tipo = parseInt(fol.querySelector('.fol-tipo').value) || 75;
-                    const wcalVal = fol.querySelector('.fol-wcal').value.trim(), cableVal = fol.querySelector('.fol-cable').value.trim();
+                const numFoliosEst = foliosListToCheck.length;
+                foliosListToCheck.forEach((fol, fIndex) => {
+                    const ml = fol.ml, tipo = fol.tipo;
+                    const wcalVal = fol.wcal || '', cableVal = fol.cable || '';
                     const mod = Math.round(ml / 0.25); totalModulos += mod; tModPlanta += mod;
                     if (wcalVal !== "" && !isNaN(parseFloat(wcalVal))) { totalWCalSum += parseFloat(wcalVal); tWCalPlanta += parseFloat(wcalVal); }
                     if (cableVal !== "") { const cableNum = parseFloat(cableVal.replace(/[^\d.,]/g, '').replace(',', '.')); if (!isNaN(cableNum)) { totalCableSum += cableNum; tCablePlanta += cableNum; } }
@@ -813,7 +948,7 @@
                     let tdTuboTaller = '';
                     if (fIndex === 0) { tdTuboTaller = conTubo ? `<td rowspan="${numFoliosEst}" style="color: var(--danger-red); font-weight: 900; background-color: #fef2f2;">CON TUBO</td>` : `<td rowspan="${numFoliosEst}"></td>`; }
 
-                    htmlFilasTallerPlanta += `<tr class="${(fIndex === 0 && eIndex > 0) ? 'sep-row' : ''}">${fIndex === 0 ? `<td rowspan="${numFoliosEst}" class="hueco-name">${nombre.toUpperCase()}</td><td rowspan="${numFoliosEst}">${formatearDecimal(m2)}</td><td rowspan="${numFoliosEst}">${formatearNumero(estWm2)}</td>` : ''}<td>${wcalVal !== "" ? wcalVal : ''}</td>${fIndex === 0 ? `<td rowspan="${numFoliosEst}"><strong>${formatearNumero(estWCol)}</strong></td>` : ''}<td class="txt-${tipo}">${tipo} W</td><td><strong>${folioPlantaIndex}</strong></td><td>${formatearDecimal(ml)}m (${mod})</td><td>${cableVal.toUpperCase()}</td><td></td><td></td><td></td><td></td><td></td>${tdTuboTaller}</tr>`;
+                    htmlFilasTallerPlanta += `<tr class="${(fIndex === 0 && eIndex > 0) ? 'sep-row' : ''}">${fIndex === 0 ? `<td rowspan="${numFoliosEst}" class="hueco-name">${nombre.toUpperCase()}</td><td rowspan="${numFoliosEst}">${formatearDecimal(m2)}</td><td rowspan="${numFoliosEst}">${formatearNumero(estWm2)}</td>` : ''}<td>${wcalVal}</td>${fIndex === 0 ? `<td rowspan="${numFoliosEst}"><strong>${formatearNumero(estWCol)}</strong></td>` : ''}<td class="txt-${tipo}">${tipo} W</td><td><strong>${folioPlantaIndex}</strong></td><td>${formatearDecimal(ml)}m (${mod})</td><td>${cableVal.toUpperCase()}</td><td></td><td></td><td></td><td></td><td></td>${tdTuboTaller}</tr>`;
                     folioPlantaIndex++; globalFolioNumTotal++; foliosCountPlanta++;
                 });
             });
@@ -825,19 +960,27 @@
 
         document.getElementById('tab-taller').innerHTML = htmlTallerCompleto;
 
+        const totalCronosCount = estanciasDOM.length + estanciasOrientativasDOM.length;
         const densMediaGlobal = totalM2 > 0 ? Math.round(totalWCol / totalM2) : 0;
-        htmlResumen += `<tr class="total-excel-row"><td colspan="2" style="text-align: left;">TOTALES</td><td>${formatearDecimal(totalM2)}</td><td>${formatearDecimal(totalM2Banos)}</td><td>${formatearNumero(densMediaGlobal)}</td><td class="txt-75">${totalW75 > 0 ? formatearNumero(totalW75) : ''}</td><td class="txt-116">${totalW116 > 0 ? formatearNumero(totalW116) : ''}</td><td class="txt-150">${totalW150 > 0 ? formatearNumero(totalW150) : ''}</td><td>${formatearNumero(totalWCol)}</td><td>${estanciasDOM.length}</td></tr>`;
+        htmlResumen += `<tr class="total-excel-row"><td colspan="2" style="text-align: left;">TOTALES</td><td>${formatearDecimal(totalM2)}</td><td>${formatearDecimal(totalM2Banos)}</td><td>${formatearNumero(densMediaGlobal)}</td><td class="txt-75">${totalW75 > 0 ? formatearNumero(totalW75) : ''}</td><td class="txt-116">${totalW116 > 0 ? formatearNumero(totalW116) : ''}</td><td class="txt-150">${totalW150 > 0 ? formatearNumero(totalW150) : ''}</td><td>${formatearNumero(totalWCol)}</td><td>${totalCronosCount}</td></tr>`;
         document.getElementById('tabla-resumen-body').innerHTML = htmlResumen;
 
         document.getElementById('res-m2-totales').innerText = formatearDecimal(totalM2); document.getElementById('res-m2-banos').innerText = formatearDecimal(totalM2Banos);
         document.getElementById('res-pot-75').innerText = formatearNumero(totalW75); document.getElementById('res-pot-116').innerText = formatearNumero(totalW116);
         document.getElementById('res-pot-150').innerText = formatearNumero(totalW150); document.getElementById('res-pot-total').innerText = formatearNumero(totalWCol);
         document.getElementById('res-ml-75').innerText = formatearDecimal(totalML75); document.getElementById('res-ml-116').innerText = formatearDecimal(totalML116);
-        document.getElementById('res-ml-150').innerText = formatearDecimal(totalML150); document.getElementById('res-cronos-total').innerText = estanciasDOM.length;
+        document.getElementById('res-ml-150').innerText = formatearDecimal(totalML150); document.getElementById('res-cronos-total').innerText = totalCronosCount;
         document.getElementById('res-densidad-media').innerText = formatearNumero(densMediaGlobal);
 
         const plasticoCub = Math.round(totalM2 * 1.3); document.getElementById('res-plastico-cub').innerText = formatearNumero(plasticoCub);
-        const totalFoliosCountGlobal = globalFolioNumTotal - 1; document.getElementById('res-udes-folio').innerText = totalFoliosCountGlobal;
+        
+        // MODIFICACIÓN SOLICITADA: Unidades de folio en blanco si es orientativo, normal si es definitivo
+        const totalFoliosCountGlobal = globalFolioNumTotal - 1; 
+        if (estanciasOrientativasDOM.length > 0) {
+            document.getElementById('res-udes-folio').innerText = "";
+        } else {
+            document.getElementById('res-udes-folio').innerText = totalFoliosCountGlobal;
+        }
 
         const rowBurbuja = document.getElementById('row-res-plastico-burb'); const plasticoBurb = Math.round((totalML75 + totalML116 + totalML150) * 1.1);
         if (usarBurbuja === 'si') { rowBurbuja.style.display = 'table-row'; document.getElementById('res-plastico-burb').innerText = formatearNumero(plasticoBurb); } else { rowBurbuja.style.display = 'none'; }
@@ -848,7 +991,7 @@
 
         if (datosEstudioInicial) {
             const oldT = calcularTotalesProyectoSilencioso(datosEstudioInicial);
-            const curT = { totalM2, densMedia: densMediaGlobal, totalWCol, ml75: totalML75, ml116: totalML116, ml150: totalML150, totalML: totalMLSum, udFolio: totalFoliosCountGlobal, cronos: estanciasDOM.length, fecha };
+            const curT = { totalM2, densMedia: densMediaGlobal, totalWCol, ml75: totalML75, ml116: totalML116, ml150: totalML150, totalML: totalMLSum, udFolio: totalFoliosCountGlobal, cronos: totalCronosCount, fecha };
             document.getElementById('comparativa-container').innerHTML = `<table class="comparativa-table"><thead><tr><th style="width:20%; border:none; background:transparent;"></th><th style="text-align:right;">ESTUDIO INICIAL</th><th style="text-align:right; color:var(--danger-red);">REVISIÓN ${curT.fecha}</th></tr></thead><tbody><tr><td style="font-weight: 700; background: #f8fafc;">M2</td><td style="text-align:right;">${formatearDecimal(oldT.totalM2)}</td><td style="text-align:right;">${formatearDecimal(curT.totalM2)}</td></tr><tr><td style="font-weight: 700; background: #f8fafc;">W/M2</td><td style="text-align:right;">${oldT.densMedia}</td><td style="text-align:right;">${curT.densMedia}</td></tr><tr><td style="font-weight: 700; background: #f8fafc;">W</td><td style="text-align:right;">${formatearNumero(oldT.totalWCol)}</td><td style="text-align:right;">${formatearNumero(curT.totalWCol)}</td></tr><tr><td style="font-weight: 700; background: #f8fafc;">M.L FOLIO</td><td style="text-align:right;"><span class="txt-75">75=${formatearDecimal(oldT.ml75)}</span> <span class="txt-116">116=${formatearDecimal(oldT.ml116)}</span> <span class="txt-150">150=${formatearDecimal(oldT.ml150)}</span></td><td style="text-align:right;"><span class="txt-75">75=${formatearDecimal(curT.ml75)}</span> <span class="txt-116">116=${formatearDecimal(curT.ml116)}</span> <span class="txt-150">150=${formatearDecimal(curT.ml150)}</span></td></tr><tr><td style="font-weight: 700; background: #f8fafc;">Total M.L FOLIO</td><td style="text-align:right; color:var(--color-green); font-weight:800;">${formatearDecimal(oldT.totalML)}</td><td style="text-align:right; color:var(--color-green); font-weight:800;">${formatearDecimal(curT.totalML)}</td></tr><tr><td style="font-weight: 700; background: #f8fafc;">Und. FOLIO</td><td style="text-align:right;">${oldT.udFolio}</td><td style="text-align:right;">${curT.udFolio}</td></tr><tr><td style="font-weight: 700; background: #f8fafc;">Und. CRONOS</td><td style="text-align:right;">${oldT.cronos}</td><td style="text-align:right;">${curT.cronos}</td></tr></tbody></table>`;
         } else {
             document.getElementById('comparativa-container').innerHTML = `<p style="text-align:center; padding: 20px; color: var(--text-muted); font-weight: 600;">Carga un archivo de proyecto (.json) anterior para ver la comparativa con los datos actuales.</p>`;
@@ -864,9 +1007,7 @@
             htmlFoliosList += `<div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${grp.count} Folios – ${tuboText} (Potencia ${grp.tipo}K) ${formatearDecimal(grp.ml)} ML.</div>`;
         }
 
-        let cronosText = estanciasDOM.length;
         let manualSistemaText = hayTuboEnProyecto ? 'Manual instrucciones Sistema Acumulación' : 'Manual instrucciones Sistema Directo';
-        
         let mostrarManuales = presTipo !== 'PRESUPUESTO LLAVE EN MANO';
 
         let htmlListaDocumento = `
@@ -889,7 +1030,7 @@
                 <div style="font-size: 17px; font-weight: 900; margin-bottom: 15px;">Materiales:</div>
                 <div style="margin-left: 15px; line-height: 1.8;">
                     ${htmlFoliosList}
-                    <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${cronosText} Cronotermostatos</div>
+                    <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${totalCronosCount} Cronotermostatos</div>
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearDecimal(m2AislamientoRedondeado)} m² Aislamiento 5 mm XPS (${paqXPS} paq. Verde reflexivo)</div>
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoCub)} M.L. de Plástico de Cubrición</div>
                     ${usarBurbuja === 'si' ? `<div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoBurb)} M.L. de Plástico de Burbuja</div>` : ''}
