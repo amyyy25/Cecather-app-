@@ -239,6 +239,7 @@
                     <option value="estandar" selected>Estándar (Sin colaborador)</option>
                     <option value="francesc">Francesc Nogués (Cataluña)</option>
                     <option value="gregorio">Gregorio García Olivares</option>
+                    <option value="josemanuel">Jose Manuel Costa (Soltroknia 2022, S.L.)</option>
                 </select>
             </div>
             <div class="form-group">
@@ -845,6 +846,7 @@
         let htmlComercial = '';
         if (colabSelect === 'francesc') { htmlComercial += `<div><strong>GESTIÓN: FRANCESC NOGUES T/ 627 954 970</strong></div><div><strong>CECATHER CATALUÑA</strong></div><div><a href="mailto:francesc@cecather.com" style="color:var(--color-75); text-decoration:none;">francesc@cecather.com</a></div><br>`; }
         if (colabSelect === 'gregorio') { htmlComercial += `<div><strong>GESTIÓN: GREGORIO GARCÍA OLIVARES</strong></div><div><strong>T/ 699 56 09 75&nbsp;&nbsp; T/ 645 20 02 95</strong></div><div><a href="mailto:gregorio.g@hotmail.es" style="color:var(--color-75); text-decoration:none;">gregorio.g@hotmail.es</a></div><br>`; }
+        if (colabSelect === 'josemanuel') { htmlComercial += `<div><strong>GESTIÓN: JOSE MANUEL COSTA</strong></div><div><strong>SOLTROKNIA 2022, S.L.</strong></div><div><strong>T/ 608 769 724</strong></div><div><a href="mailto:levante@cecather.com" style="color:var(--color-75); text-decoration:none;">levante@cecather.com</a></div><br>`; }
         htmlComercial += `<div><strong>SOLICITANTE:</strong> <span>${solicitante.toUpperCase()}</span></div><div><strong>T/</strong> <span>${telefono}</span></div><div><strong>Mail:</strong> <span style="color:var(--color-75);">${email}</span></div><br><div><strong>*${pavimento.toUpperCase()}</strong></div><div><strong>*${tubo.toUpperCase()}</strong></div><br><div class="txt-red-highlight"><strong>*${presTipo.toUpperCase()}</strong></div><br><div style="display: flex; justify-content: space-between;"><span>GRADOS DIA BASE:</span> <strong>${gradosDiaRaw}</strong></div><div style="display: flex; justify-content: space-between;"><span>TEMPERATURA EXT.:</span> <strong>${tempExt}</strong></div><p style="font-size: 9px; color: var(--text-muted); margin-top: 1px;">Guía técnica de condiciones climáticas exteriores de proyecto</p><div style="margin-top: 6px;"><strong>Rfa. ${nombreCiudadRef.toUpperCase()}</strong></div><br><div><strong>Técnica proyecto:</strong> <span>${tecnico}</span></div>`;
         document.getElementById('commercial-box-container').innerHTML = htmlComercial;
 
@@ -976,7 +978,6 @@
 
         const plasticoCub = Math.round(totalM2 * 1.3); document.getElementById('res-plastico-cub').innerText = formatearNumero(plasticoCub);
         
-        // MODIFICACIÓN SOLICITADA: Unidades de folio en blanco si es orientativo, normal si es definitivo
         const totalFoliosCountGlobal = globalFolioNumTotal - 1; 
         if (estanciasOrientativasDOM.length > 0) {
             document.getElementById('res-udes-folio').innerText = "";
