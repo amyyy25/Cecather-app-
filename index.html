@@ -184,8 +184,12 @@
                 <input type="text" id="referencia" placeholder="Ej. Ref: 25F-78950" value="25F-78950 (REVISIÓN 15.06.26)" oninput="guardarEstadoLocal()">
             </div>
             <div class="form-group">
-                <label>Instalación / Tubo</label>
-                <input type="text" id="tubo" value="INSTALACIÓN DIRECTA - SIN TUBO" oninput="guardarEstadoLocal()">
+                <label>Tipo de Instalación</label>
+                <select id="tubo" onchange="guardarEstadoLocal(); generarTodo();">
+                    <option value="INSTALACIÓN DIRECTA - SIN TUBO" selected>Instalación directa - sin tubo</option>
+                    <option value="INSTALACIÓN ACUMULACIÓN - CON TUBO">Instalación acumulación - con tubo</option>
+                    <option value="INSTALACIÓN MIXTA">Instalación mixta</option>
+                </select>
             </div>
         </div>
         <div class="grid-4" style="margin-top: 10px; background: #f1f5f9; padding: 10px; border-radius: 6px;">
@@ -570,7 +574,7 @@
 
     function cargarDatosEnPantalla(data) {
         if (!data || typeof data !== 'object') throw new Error("Los datos del proyecto no son válidos.");
-        document.getElementById('titulo').value = data.titulo ?? ''; document.getElementById('referencia').value = data.referencia ?? ''; document.getElementById('tubo').value = data.tubo ?? '';
+        document.getElementById('titulo').value = data.titulo ?? ''; document.getElementById('referencia').value = data.referencia ?? ''; document.getElementById('tubo').value = data.tubo ?? 'INSTALACIÓN DIRECTA - SIN TUBO';
         const selectCiudad = document.getElementById('select-ciudad'); const ciudadImportada = data.selectCiudad || 'BARCELONA|BARCELONA';
         const opcionCiudad = Array.from(selectCiudad.options).find(option => option.value === ciudadImportada);
         if (opcionCiudad) { selectCiudad.value = ciudadImportada; } else if (ciudadImportada === "MANUAL") { selectCiudad.value = "MANUAL"; } else { selectCiudad.value = "BARCELONA|BARCELONA"; }
@@ -606,7 +610,8 @@
 
     function vaciarProyectoParaPlantilla() {
         if (confirm("¿Deseas limpiar todo para dejarlo como plantilla vacía?")) {
-            ['titulo','referencia','tubo','solicitante','telefono','email'].forEach(id => document.getElementById(id).value = "");
+            ['titulo','referencia','solicitante','telefono','email'].forEach(id => document.getElementById(id).value = "");
+            document.getElementById('tubo').value = "INSTALACIÓN DIRECTA - SIN TUBO";
             document.getElementById('estancias-container').innerHTML = ''; estanciaCount = 0;
             document.getElementById('estancias-orientativo-container').innerHTML = ''; estanciaOrientativaCount = 0;
             document.getElementById('val-aclaracion').innerText = "Hacer clic para escribir aclaración...";
@@ -832,7 +837,9 @@
 
     function generarTodo() {
         const titulo = document.getElementById('titulo').value || 'VIVIENDA UNIFAMILIAR'; const ref = document.getElementById('referencia').value || '-';
-        const tubo = document.getElementById('tubo').value || 'INSTALACIÓN DIRECTA - SIN TUBO'; const solicitante = document.getElementById('solicitante').value || '-';
+        const tipoInstalacionSelect = document.getElementById('tubo').value;
+        const tubo = tipoInstalacionSelect; 
+        const solicitante = document.getElementById('solicitante').value || '-';
         const telefono = document.getElementById('telefono').value || '-'; const email = document.getElementById('email').value || '-';
         const pavimento = document.getElementById('pavimento').value || 'PAVIMENTO TARIMA'; const fecha = document.getElementById('fecha').value || '18.08.26';
         const tecnico = document.getElementById('tecnico').value || 'Amy Montero'; const presTipo = document.getElementById('tipo-presupuesto').value;
@@ -899,6 +906,9 @@
         let globalFolioNumTotal = 1, totalModulos = 0, totalMLSum = 0;
         let totalML75 = 0, totalML116 = 0, totalML150 = 0;
         let totalW75 = 0, totalW116 = 0, totalW150 = 0;
+        
+        let mlBurbujaSuma = 0;
+
         let htmlTallerCompleto = '', htmlResumen = '';
         let isFirstGroup = true, isFirstTaller = true;
 
@@ -923,9 +933,11 @@
                     }));
                 }
 
+                let estMLSumTotal = 0;
                 foliosListToCheck.forEach(fol => {
                     const ml = fol.ml, tipo = fol.tipo, w = ml * tipo;
                     estWCol += w; tMLPlanta += ml; totalMLSum += ml;
+                    estMLSumTotal += ml;
                     if (tipo === 75) { estML75 += ml; totalML75 += ml; totalW75 += w; }
                     if (tipo === 116) { estML116 += ml; totalML116 += ml; totalW116 += w; }
                     if (tipo === 150) { estML150 += ml; totalML150 += ml; totalW150 += w; }
@@ -937,6 +949,15 @@
                         agrupacionFolios[keyAgrupacion].ml += ml;
                     }
                 });
+
+                if (tipoInstalacionSelect === "INSTALACIÓN ACUMULACIÓN - CON TUBO") {
+                    mlBurbujaSuma += estMLSumTotal;
+                } else if (tipoInstalacionSelect === "INSTALACIÓN MIXTA") {
+                    if (conTubo) {
+                        mlBurbujaSuma += estMLSumTotal;
+                    }
+                } else {
+                }
 
                 totalWCol += estWCol; tWColPlanta += estWCol;
                 const estWm2 = m2 > 0 ? Math.round(estWCol / m2) : 0;
@@ -960,7 +981,13 @@
             });
 
             let densMediaPlanta = tM2Planta > 0 ? Math.round(tWColPlanta / tM2Planta) : 0;
-            htmlTallerCompleto += `<div class="planta-taller-sheet" ${isFirstTaller ? '' : 'style="page-break-before: always; margin-top: 30px;"'}><div class="print-header-brand"><div class="cecather-logo-box"><span class="sub-black">GRUPO</span><span class="main-yellow">CECATHER <sup>®</sup></span></div><div style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">DOCUMENTACIÓN DE TALLER Y MONTAJE</div></div><div class="table-responsive"><table class="taller-table" style="margin-bottom: 20px;"><thead><tr><td colspan="5" class="header-info">${titulo.toUpperCase()}</td><td colspan="4" class="header-info">Ref: ${ref}</td><td colspan="3" class="header-info">PLANTA: ${plantaName.toUpperCase()}</td><td colspan="3" class="header-info" style="text-align: center;">${tubo.toUpperCase()}</td></tr><tr><th style="width: 14%;">Hueco</th><th style="width: 6%;">M²</th><th style="width: 6%;">W/M²</th><th style="width: 7%;">W. CAL.</th><th style="width: 7%;">W. COL.</th><th style="width: 7%;">W/ML</th><th style="width: 6%;">Nº FOLIO</th><th style="width: 10%;">LONG / MOD</th><th style="width: 8%;">CABLE</th><th style="width: 5%;">Realizado</th><th style="width: 5%;">Ω Tall.</th><th style="width: 5%;">Ω Obra</th><th style="width: 5%;">Ω Sol.</th><th style="width: 7%; color: #DC2626;">Código<br>0,25K</th><th style="width: 10%;">OBSERVACIONES</th></tr></thead><tbody>${htmlFilasTallerPlanta}<tr class="totals-row"><td>TOTAL ${plantaName.toUpperCase()}</td><td>${formatearDecimal(tM2Planta)}</td><td></td><td>${tWCalPlanta > 0 ? formatearNumero(tWCalPlanta) : ''}</td><td>${formatearNumero(tWColPlanta)}</td><td style="font-weight:900; color:var(--danger-red);">${formatearNumero(densMediaPlanta)}</td><td style="font-weight:900;">${foliosCountPlanta}</td><td style="font-weight:900;">${formatearDecimal(tMLPlanta)}m (${tModPlanta})</td><td style="font-weight:900;">${tCablePlanta > 0 ? tCablePlanta + 'M' : ''}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>`;
+            
+            let avisoTallerHtml = '';
+            if (tipoInstalacionSelect === "INSTALACIÓN MIXTA" || tipoInstalacionSelect === "INSTALACIÓN ACUMULACIÓN - CON TUBO") {
+                avisoTallerHtml = `<div style="color: var(--danger-red); font-size: 10px; font-weight: 800; margin-top: 4px; text-align: left;">Configurar temperatura cronotermostato</div>`;
+            }
+
+            htmlTallerCompleto += `<div class="planta-taller-sheet" ${isFirstTaller ? '' : 'style="page-break-before: always; margin-top: 30px;"'}><div class="print-header-brand"><div class="cecather-logo-box"><span class="sub-black">GRUPO</span><span class="main-yellow">CECATHER <sup>®</sup></span></div><div style="text-align: right; font-size: 12px; font-weight: 800; color: #000000; letter-spacing: 0.5px;">DOCUMENTACIÓN DE TALLER Y MONTAJE</div></div>${avisoTallerHtml}<div class="table-responsive"><table class="taller-table" style="margin-top: 4px; margin-bottom: 20px;"><thead><tr><td colspan="5" class="header-info">${titulo.toUpperCase()}</td><td colspan="4" class="header-info">Ref: ${ref}</td><td colspan="3" class="header-info">PLANTA: ${plantaName.toUpperCase()}</td><td colspan="3" class="header-info" style="text-align: center;">${tubo.toUpperCase()}</td></tr><tr><th style="width: 14%;">Hueco</th><th style="width: 6%;">M²</th><th style="width: 6%;">W/M²</th><th style="width: 7%;">W. CAL.</th><th style="width: 7%;">W. COL.</th><th style="width: 7%;">W/ML</th><th style="width: 6%;">Nº FOLIO</th><th style="width: 10%;">LONG / MOD</th><th style="width: 8%;">CABLE</th><th style="width: 5%;">Realizado</th><th style="width: 5%;">Ω Tall.</th><th style="width: 5%;">Ω Obra</th><th style="width: 5%;">Ω Sol.</th><th style="width: 7%; color: #DC2626;">Código<br>0,25K</th><th style="width: 10%;">OBSERVACIONES</th></tr></thead><tbody>${htmlFilasTallerPlanta}<tr class="totals-row"><td>TOTAL ${plantaName.toUpperCase()}</td><td>${formatearDecimal(tM2Planta)}</td><td></td><td>${tWCalPlanta > 0 ? formatearNumero(tWCalPlanta) : ''}</td><td>${formatearNumero(tWColPlanta)}</td><td style="font-weight:900; color:var(--danger-red);">${formatearNumero(densMediaPlanta)}</td><td style="font-weight:900;">${foliosCountPlanta}</td><td style="font-weight:900;">${formatearDecimal(tMLPlanta)}m (${tModPlanta})</td><td style="font-weight:900;">${tCablePlanta > 0 ? tCablePlanta + 'M' : ''}</td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div>`;
             isFirstGroup = false; isFirstTaller = false;
         }
 
@@ -987,8 +1014,21 @@
             document.getElementById('res-udes-folio').innerText = totalFoliosCountGlobal;
         }
 
-        const rowBurbuja = document.getElementById('row-res-plastico-burb'); const plasticoBurb = Math.round((totalML75 + totalML116 + totalML150) * 1.1);
-        if (usarBurbuja === 'si') { rowBurbuja.style.display = 'table-row'; document.getElementById('res-plastico-burb').innerText = formatearNumero(plasticoBurb); } else { rowBurbuja.style.display = 'none'; }
+        const rowBurbuja = document.getElementById('row-res-plastico-burb'); 
+        
+        if (tipoInstalacionSelect === "INSTALACIÓN DIRECTA - SIN TUBO") {
+            mlBurbujaSuma = 0;
+        } else if (tipoInstalacionSelect === "INSTALACIÓN ACUMULACIÓN - CON TUBO") {
+            mlBurbujaSuma = totalML75 + totalML116 + totalML150;
+        }
+        const plasticoBurb = Math.round(mlBurbujaSuma * 1.1);
+
+        if (usarBurbuja === 'si' && tipoInstalacionSelect !== "INSTALACIÓN DIRECTA - SIN TUBO") { 
+            rowBurbuja.style.display = 'table-row'; 
+            document.getElementById('res-plastico-burb').innerText = formatearNumero(plasticoBurb); 
+        } else { 
+            rowBurbuja.style.display = 'none'; 
+        }
 
         const rollosCinta = Math.ceil((totalCableSum + (2 * totalMLSum) + (1.2 * totalFoliosCountGlobal)) / 50); document.getElementById('res-rollos-cinta').innerText = rollosCinta > 0 ? rollosCinta : 0;
 
@@ -1038,7 +1078,7 @@
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${totalCronosCount} Cronotermostatos</div>
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearDecimal(m2AislamientoRedondeado)} m² Aislamiento 5 mm XPS (${paqXPS} paq. Verde reflexivo)</div>
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoCub)} M.L. de Plástico de Cubrición</div>
-                    ${usarBurbuja === 'si' ? `<div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoBurb)} M.L. de Plástico de Burbuja</div>` : ''}
+                    ${usarBurbuja === 'si' && tipoInstalacionSelect !== "INSTALACIÓN DIRECTA - SIN TUBO" ? `<div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${formatearNumero(plasticoBurb)} M.L. de Plástico de Burbuja</div>` : ''}
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${rollosCinta > 0 ? rollosCinta : 0} Rollos cinta gris de instalación</div>
                     ${mostrarManuales ? `
                     <div style="margin-bottom: 12px; font-size: 15px;">&#9744; ${manualSistemaText}</div>
